@@ -4,9 +4,12 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
+ * @UniqueEntity("title")
  */
 class Product
 {
@@ -18,6 +21,7 @@ class Product
     private $id;
 
     /**
+     * @Assert\Length(min=5,max=255)
      * @ORM\Column(type="string", length=255)
      */
     private $name;
@@ -48,63 +52,99 @@ class Product
      */
     private $comments;
 
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
 
 
+    /**
+     * Product constructor.
+     */
     public function __construct()
     {
+        $this -> createdAt = new \DateTime();
 
     }
 
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
-        return $this->id;
+        return $this -> id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getName(): ?string
     {
-        return $this->name;
+        return $this -> name;
     }
 
-    public function setName(string $name): self
+    /**
+     * @param string $name
+     * @return $this
+     */
+    public function setName( string $name ): self
     {
-        $this->name = $name;
-
+        $this -> name = $name;
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getDescription(): ?string
     {
-        return $this->description;
+        return $this -> description;
     }
 
-    public function setDescription(string $description): self
+    /**
+     * @param string $description
+     * @return $this
+     */
+    public function setDescription( string $description ): self
     {
-        $this->description = $description;
-
+        $this -> description = $description;
         return $this;
     }
 
-    public function getCategory(): ?Category
+    /**
+     * @return mixed
+     */
+    public function getCategory()
     {
-        return $this->category;
+        return $this -> category;
     }
 
-    public function setCategory(?Category $category): self
+    /**
+     * @param Category|null $category
+     * @return $this
+     */
+    public function setCategory( ?Category $category ): self
     {
-        $this->category = $category;
-
+        $this -> category = $category;
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getImage(): ?string
     {
-        return $this->image;
+        return $this -> image;
     }
 
-    public function setImage(string $image): self
+    /**
+     * @param string $image
+     * @return $this
+     */
+    public function setImage( string $image ): self
     {
-        $this->image = $image;
+        $this -> image = $image;
 
         return $this;
     }
@@ -114,26 +154,34 @@ class Product
      */
     public function getImages(): Collection
     {
-        return $this->images;
+        return $this -> images;
     }
 
-    public function addImage(Image $image): self
+    /**
+     * @param Image $image
+     * @return $this
+     */
+    public function addImage( Image $image ): self
     {
-        if (!$this->images->contains($image)) {
-            $this->images[] = $image;
-            $image->setProducts($this);
+        if(!$this -> images -> contains( $image )) {
+            $this -> images[] = $image;
+            $image -> setProducts( $this );
         }
 
         return $this;
     }
 
-    public function removeImage(Image $image): self
+    /**
+     * @param Image $image
+     * @return $this
+     */
+    public function removeImage( Image $image ): self
     {
-        if ($this->images->contains($image)) {
-            $this->images->removeElement($image);
+        if($this -> images -> contains( $image )) {
+            $this -> images -> removeElement( $image );
             // set the owning side to null (unless already changed)
-            if ($image->getProducts() === $this) {
-                $image->setProducts(null);
+            if($image -> getProducts() === $this) {
+                $image -> setProducts( null );
             }
         }
 
@@ -145,41 +193,51 @@ class Product
      */
     public function getComments(): Collection
     {
-        return $this->comments;
+        return $this -> comments;
     }
 
-    public function addComment(Comment $comment): self
+    /**
+     * @param Comment $comment
+     * @return $this
+     */
+    public function addComment( Comment $comment ): self
     {
-        if (!$this->comments->contains($comment)) {
-            $this->comments[] = $comment;
-            $comment->setProducts($this);
+        if(!$this -> comments -> contains( $comment )) {
+            $this -> comments[] = $comment;
+            $comment -> setProducts( $this );
         }
 
         return $this;
     }
 
-    public function removeComment(Comment $comment): self
+    /**
+     * @param Comment $comment
+     * @return $this
+     */
+    public function removeComment( Comment $comment ): self
     {
-        if ($this->comments->contains($comment)) {
-            $this->comments->removeElement($comment);
+        if($this -> comments -> contains( $comment )) {
+            $this -> comments -> removeElement( $comment );
             // set the owning side to null (unless already changed)
-            if ($comment->getProducts() === $this) {
-                $comment->setProducts(null);
+            if($comment -> getProducts() === $this) {
+                $comment -> setProducts( null );
             }
         }
 
         return $this;
     }
 
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this -> createdAt;
+    }
 
+    public function setCreatedAt( \DateTimeInterface $createdAt ): self
+    {
+        $this -> createdAt = $createdAt;
 
-
-
-
-
-
-
-
+        return $this;
+    }
 
 
 }
