@@ -28,7 +28,7 @@ class Image
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Product")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="images")
      * @ORM\JoinColumn(nullable=false)
      */
     private $products;

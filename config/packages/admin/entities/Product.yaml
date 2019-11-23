@@ -10,3 +10,4 @@ easy_admin:
           - {property: 'image'}
           - {property: 'createdAt'}
           - {property: 'specificities'}
+          - {property: 'comments'}

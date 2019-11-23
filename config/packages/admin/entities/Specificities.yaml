@@ -2,6 +2,6 @@ easy_admin:
   entities:
     Specificities:
       class: App\Entity\Specificities
-      form:
-        fields:
-          - {property: 'name'}
+#      form:
+#        fields:
+#          - {property: 'name'}

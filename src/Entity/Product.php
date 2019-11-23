@@ -40,7 +40,6 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @ORM\JoinColumn(onDelete = "CASCADE")
      */
     private $image;
 
@@ -60,7 +59,7 @@ class Product
     private $createdAt;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Specificities", mappedBy="products")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Specificities", inversedBy="products")
      */
     private $specificities;
 
@@ -248,6 +247,11 @@ class Product
         return $this;
     }
 
+    public function setSpecificities( ?Specificities $specificity): self
+    {
+        $this->specificities = $specificity;
+        return $this;
+    }
     /**
      * @return Collection|Specificities[]
      */
@@ -260,9 +264,8 @@ class Product
     {
         if(!$this -> specificities -> contains( $specificity )) {
             $this -> specificities[] = $specificity;
-            $specificity -> addProduct( $this );
+            $specificity->addProduct($this);
         }
-
         return $this;
     }
 
@@ -270,9 +273,12 @@ class Product
     {
         if($this -> specificities -> contains( $specificity )) {
             $this -> specificities -> removeElement( $specificity );
-            $specificity -> removeProduct( $this );
+            $specificity->removeProduct($this);
+            // set the owning side to null (unless already changed)
+            if($specificity -> getProducts() === $this) {
+                $specificity -> setProducts( null );
+            }
         }
-
         return $this;
     }
 

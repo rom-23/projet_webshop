@@ -24,26 +24,39 @@ class Specificities
     private $name;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Product", inversedBy="specificities")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Product", mappedBy="specificities")
      */
     private $products;
 
+    /**
+     * Specificities constructor.
+     */
     public function __construct()
     {
         $this->products = new ArrayCollection();
     }
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setName(string $name): self
+    /**
+     * @param string $name
+     * @return $this
+     */
+    public function setName( string $name): self
     {
         $this->name = $name;
 
@@ -58,24 +71,49 @@ class Specificities
         return $this->products;
     }
 
-    public function addProduct(Product $product): self
+    /**
+     * @param Product|null $products
+     * @return $this
+     */
+    public function setProducts( ?Product $products): self
+    {
+        $this->products = $products;
+
+        return $this;
+    }
+
+    /**
+     * @param Product $product
+     * @return $this
+     */
+    public function addProduct( Product $product): self
     {
         if (!$this->products->contains($product)) {
             $this->products[] = $product;
+            $product->addSpecificity($this);
         }
-
         return $this;
     }
 
-    public function removeProduct(Product $product): self
+    /**
+     * @param Product $product
+     * @return $this
+     */
+    public function removeProduct( Product $product): self
     {
         if ($this->products->contains($product)) {
             $this->products->removeElement($product);
+            $product->removeSpecificity($this);
+            if($product -> getSpecificities() === $this) {
+                $product -> setSpecificities( null );
+            }
         }
-
         return $this;
     }
 
+    /**
+     * @return mixed
+     */
     public function __toString()
     {
         return $this -> name;
