@@ -23,14 +23,14 @@ class Comment
     private $author;
 
     /**
-     * @ORM\Column(type="text")
-     */
-    private $content;
-
-    /**
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $content;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="comments")
@@ -44,70 +44,109 @@ class Comment
      */
     private $user;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
-        return $this->id;
+        return $this -> id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getAuthor(): ?string
     {
-        return $this->author;
+        return $this -> author;
     }
 
-    public function setAuthor(string $author): self
+    /**
+     * @param string $author
+     * @return $this
+     */
+    public function setAuthor( string $author ): self
     {
-        $this->author = $author;
+        $this -> author = $author;
 
         return $this;
     }
 
+    /**
+     * @return string|null
+     */
     public function getContent(): ?string
     {
-        return $this->content;
+        return $this -> content;
     }
 
-    public function setContent(string $content): self
+    /**
+     * @param string $content
+     * @return $this
+     */
+    public function setContent( string $content ): self
     {
-        $this->content = $content;
+        $this -> content = $content;
 
         return $this;
     }
 
+    /**
+     * @return DateTimeInterface|null
+     */
     public function getCreatedAt(): ?DateTimeInterface
     {
-        return $this->createdAt;
+        return $this -> createdAt;
     }
 
-    public function setCreatedAt( DateTimeInterface $createdAt): self
+    /**
+     * @param DateTimeInterface $createdAt
+     * @return $this
+     */
+    public function setCreatedAt( DateTimeInterface $createdAt ): self
     {
-        $this->createdAt = $createdAt;
+        $this -> createdAt = $createdAt;
 
         return $this;
     }
 
+    /**
+     * @return Product|null
+     */
     public function getProducts(): ?Product
     {
         return $this->products;
     }
 
-    public function setProducts(?Product $products): self
+    /**
+     * @param Product|null $products
+     * @return $this
+     */
+    public function setProducts( ?Product $products): self
     {
         $this->products = $products;
 
         return $this;
     }
 
+    /**
+     * @return User|null
+     */
     public function getUser(): ?User
     {
-        return $this->user;
+        return $this -> user;
     }
 
-    public function setUser(?User $user): self
+    /**
+     * @param User|null $user
+     * @return $this
+     */
+    public function setUser( ?User $user ): self
     {
-        $this->user = $user;
+        $this -> user = $user;
 
         return $this;
     }
+
     public function __toString()
     {
         return $this -> author;

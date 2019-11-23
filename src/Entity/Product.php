@@ -120,6 +120,18 @@ class Product
         return $this;
     }
 
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this -> createdAt;
+    }
+
+    public function setCreatedAt( \DateTimeInterface $createdAt ): self
+    {
+        $this -> createdAt = $createdAt;
+
+        return $this;
+    }
+
     /**
      * @return mixed
      */
@@ -153,7 +165,6 @@ class Product
     public function setImage( string $image ): self
     {
         $this -> image = $image;
-
         return $this;
     }
 
@@ -175,7 +186,6 @@ class Product
             $this -> images[] = $image;
             $image -> setProducts( $this );
         }
-
         return $this;
     }
 
@@ -214,7 +224,6 @@ class Product
             $this -> comments[] = $comment;
             $comment -> setProducts( $this );
         }
-
         return $this;
     }
 
@@ -231,40 +240,36 @@ class Product
                 $comment -> setProducts( null );
             }
         }
-
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this -> createdAt;
-    }
-
-    public function setCreatedAt( \DateTimeInterface $createdAt ): self
-    {
-        $this -> createdAt = $createdAt;
-
-        return $this;
-    }
-
-    public function setSpecificities( ?Specificities $specificity): self
-    {
-        $this->specificities = $specificity;
-        return $this;
-    }
     /**
-     * @return Collection|Specificities[]
+     * @param Specificities|null $specificity
+     * @return $this
+     */
+    public function setSpecificities( ?Specificities $specificity ): self
+    {
+        $this -> specificities = $specificity;
+        return $this;
+    }
+
+    /**
+     * @return Collection
      */
     public function getSpecificities(): Collection
     {
         return $this -> specificities;
     }
 
+    /**
+     * @param Specificities $specificity
+     * @return $this
+     */
     public function addSpecificity( Specificities $specificity ): self
     {
         if(!$this -> specificities -> contains( $specificity )) {
             $this -> specificities[] = $specificity;
-            $specificity->addProduct($this);
+            $specificity -> addProduct( $this );
         }
         return $this;
     }
@@ -273,7 +278,7 @@ class Product
     {
         if($this -> specificities -> contains( $specificity )) {
             $this -> specificities -> removeElement( $specificity );
-            $specificity->removeProduct($this);
+            $specificity -> removeProduct( $this );
             // set the owning side to null (unless already changed)
             if($specificity -> getProducts() === $this) {
                 $specificity -> setProducts( null );

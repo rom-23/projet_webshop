@@ -33,28 +33,45 @@ class Image
      */
     private $products;
 
+    /**
+     * @return int|null
+     */
     public function getId(): ?int
     {
         return $this->id;
     }
 
+    /**
+     * @return string|null
+     */
     public function getFileName(): ?string
     {
         return $this->fileName;
     }
 
-    public function setFileName(string $fileName): self
+    /**
+     * @param string $fileName
+     * @return $this
+     */
+    public function setFileName( string $fileName): self
     {
         $this->fileName = $fileName;
 
         return $this;
     }
 
+    /**
+     * @return DateTimeInterface|null
+     */
     public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
 
+    /**
+     * @param DateTimeInterface $createdAt
+     * @return $this
+     */
     public function setCreatedAt( DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
@@ -62,17 +79,25 @@ class Image
         return $this;
     }
 
+    /**
+     * @return Product|null
+     */
     public function getProducts(): ?Product
     {
         return $this->products;
     }
 
-    public function setProducts(?Product $products): self
+    /**
+     * @param Product|null $products
+     * @return $this
+     */
+    public function setProducts( ?Product $products): self
     {
         $this->products = $products;
 
         return $this;
     }
+
     public function __toString()
     {
         return $this->fileName;

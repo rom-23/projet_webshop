@@ -2,12 +2,12 @@ easy_admin:
   entities:
     Product:
       class: App\Entity\Product
-      form:
-        fields:
-          - {property: 'name'}
-          - {property: 'description'}
-          - {property: 'category'}
-          - {property: 'image'}
-          - {property: 'createdAt'}
-          - {property: 'specificities'}
-          - {property: 'comments'}
+#      form:
+#        fields:
+#          - {property: 'name'}
+#          - {property: 'description'}
+#          - {property: 'category'}
+#          - {property: 'image'}
+#          - {property: 'createdAt'}
+#          - {property: 'specificities'}
+#          - {property: 'comments'}
