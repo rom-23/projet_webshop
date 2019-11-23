@@ -28,7 +28,7 @@ class Image
     private $createdAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Product", inversedBy="images")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Product")
      * @ORM\JoinColumn(nullable=false)
      */
     private $products;
@@ -72,5 +72,9 @@ class Image
         $this->products = $products;
 
         return $this;
+    }
+    public function __toString()
+    {
+        return $this->fileName;
     }
 }

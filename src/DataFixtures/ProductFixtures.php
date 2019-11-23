@@ -42,20 +42,26 @@ class ProductFixtures extends Fixture
                     $manager -> persist( $image );
                 }
                     //  users
-                    for ($f = 1; $f <= mt_rand( 4, 8 ); $f++) {
+                    for ($f = 1; $f <= mt_rand( 4, 6 ); $f++) {
                         $user = new User();
+                        $now = new \DateTime();
+                        $interval = $now -> diff( $product -> getCreatedAt() );
+                        $days = $interval -> days;
+                        $minimum = '-' . $days . 'days'; // -100 days
                         $user
                             -> setUsername( $faker -> name )
                             -> setEmail( $faker -> email )
-                            -> setPassword( 'pass-' . $f );
+                            -> setPassword( 'pass-' . $f )
+                            -> setCreatedAt( $faker -> dateTimeBetween( $minimum ) );
                         $manager -> persist( $user );
-                        for ($k = 1; $k <= mt_rand( 4, 10 ); $k++) {
+                    // comment
+                        for ($k = 1; $k <= mt_rand( 4, 8 ); $k++) {
                             $comment = new Comment();
                             $content = '<p>' . join( $faker -> paragraphs( 1 ), '</p><p>' ) . '</p>';
-                            $now = new \DateTime();
-                            $interval = $now -> diff( $product -> getCreatedAt() );
-                            $days = $interval -> days;
-                            $minimum = '-' . $days . 'days'; // -100 days
+//                            $now = new \DateTime();
+//                            $interval = $now -> diff( $product -> getCreatedAt() );
+//                            $days = $interval -> days;
+//                            $minimum = '-' . $days . 'days';
                             $comment
                                 -> setProducts( $product )
                                 -> setAuthor( $faker -> name )

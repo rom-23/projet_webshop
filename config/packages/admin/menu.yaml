@@ -1,0 +1,12 @@
+easy_admin:
+  design:
+    menu:
+      - label: 'Shop'
+        icon: 'newspaper-o'
+        children:
+          - {entity: 'Product', icon: 'newspaper-o', label: 'Product'}
+          - {entity: 'Category', icon: 'inbox', label: 'Category'}
+          - {entity: 'User', icon: 'tags', label: 'User'}
+          - {entity: 'Comment', icon: 'newspaper-o', label: 'Comment'}
+          - {entity: 'Specificities', icon: 'inbox', label: 'Specificities'}
+          - {entity: 'Image', icon: 'tags', label: 'Image'}

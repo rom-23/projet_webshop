@@ -7,9 +7,9 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\CategoryRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\SpecificitiesRepository")
  */
-class Category
+class Specificities
 {
     /**
      * @ORM\Id()
@@ -21,16 +21,10 @@ class Category
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $title;
+    private $name;
 
     /**
-     * @ORM\Column(type="text")
-     */
-    private $catDescription;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Product", mappedBy="category")
-     *
+     * @ORM\ManyToMany(targetEntity="App\Entity\Product", inversedBy="specificities")
      */
     private $products;
 
@@ -44,26 +38,14 @@ class Category
         return $this->id;
     }
 
-    public function getTitle(): ?string
+    public function getName(): ?string
     {
-        return $this->title;
+        return $this->name;
     }
 
-    public function setTitle(string $title): self
+    public function setName(string $name): self
     {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    public function getCatDescription(): ?string
-    {
-        return $this->catDescription;
-    }
-
-    public function setCatDescription(string $catDescription): self
-    {
-        $this->catDescription = $catDescription;
+        $this->name = $name;
 
         return $this;
     }
@@ -80,7 +62,6 @@ class Category
     {
         if (!$this->products->contains($product)) {
             $this->products[] = $product;
-            $product->setCategory($this);
         }
 
         return $this;
@@ -90,16 +71,13 @@ class Category
     {
         if ($this->products->contains($product)) {
             $this->products->removeElement($product);
-            // set the owning side to null (unless already changed)
-            if ($product->getCategory() === $this) {
-                $product->setCategory(null);
-            }
         }
 
         return $this;
     }
+
     public function __toString()
     {
-        return $this->title;
+        return $this -> name;
     }
 }

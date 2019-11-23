@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -9,7 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
- * @UniqueEntity("title")
+ * @UniqueEntity("name")
  */
 class Product
 {
@@ -39,6 +40,7 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @ORM\JoinColumn(onDelete = "CASCADE")
      */
     private $image;
 
@@ -57,6 +59,11 @@ class Product
      */
     private $createdAt;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Specificities", mappedBy="products")
+     */
+    private $specificities;
+
 
     /**
      * Product constructor.
@@ -64,7 +71,9 @@ class Product
     public function __construct()
     {
         $this -> createdAt = new \DateTime();
-
+        $this -> specificities = new ArrayCollection();
+        $this -> images = new ArrayCollection();
+        $this -> comments = new ArrayCollection();
     }
 
 
@@ -239,5 +248,37 @@ class Product
         return $this;
     }
 
+    /**
+     * @return Collection|Specificities[]
+     */
+    public function getSpecificities(): Collection
+    {
+        return $this -> specificities;
+    }
+
+    public function addSpecificity( Specificities $specificity ): self
+    {
+        if(!$this -> specificities -> contains( $specificity )) {
+            $this -> specificities[] = $specificity;
+            $specificity -> addProduct( $this );
+        }
+
+        return $this;
+    }
+
+    public function removeSpecificity( Specificities $specificity ): self
+    {
+        if($this -> specificities -> contains( $specificity )) {
+            $this -> specificities -> removeElement( $specificity );
+            $specificity -> removeProduct( $this );
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this -> name;
+    }
 
 }
