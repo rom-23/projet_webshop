@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use Cocur\Slugify\Slugify;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -40,6 +41,7 @@ class Product
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min=5,max=255)
      */
     private $image;
 
@@ -108,6 +110,14 @@ class Product
     }
 
     /**
+     * @return string
+     */
+    public function getSlug(): string
+    {
+        return (new Slugify()) -> slugify( $this -> name );
+    }
+
+    /**
      * @param string $name
      * @return $this
      */
@@ -157,17 +167,19 @@ class Product
         $this -> createdAt = $createdAt;
         return $this;
     }
-   public function getSold(): ?bool
+
+    public function getSold(): ?bool
     {
-        return $this->sold;
+        return $this -> sold;
     }
 
-    public function setSold(bool $sold): self
+    public function setSold( bool $sold ): self
     {
-        $this->sold = $sold;
+        $this -> sold = $sold;
 
         return $this;
     }
+
     /**
      * @return mixed
      */
@@ -362,7 +374,6 @@ class Product
     {
         return $this -> name;
     }
-
 
 
 }

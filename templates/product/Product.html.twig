@@ -47,31 +47,31 @@
         </div>
     </header>
     <div class="container">
-        <h1 class="my-4">Welcome to Modern Business</h1>
-        <!-- Marketing Icons Section -->
-        <div class="row">
-            <div class="col-lg-4 mb-4">
-                <div class="card h-100">
-                    <h4 class="card-header">Card Title</h4>
-                    <div class="card-body">
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Learn More</a>
-                    </div>
+    <h1 class="my-4">Welcome to Modern Business</h1>
+    <!-- Marketing Icons Section -->
+    <div class="row">
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100">
+                <h4 class="card-header">Card Title</h4>
+                <div class="card-body">
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn btn-primary">Learn More</a>
                 </div>
             </div>
-            <div class="col-lg-4 mb-4">
-                <div class="card h-100">
-                    <h4 class="card-header">Card Title</h4>
-                    <div class="card-body">
-                        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary">Learn More</a>
-                    </div>
+        </div>
+        <div class="col-lg-4 mb-4">
+            <div class="card h-100">
+                <h4 class="card-header">Card Title</h4>
+                <div class="card-body">
+                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente esse necessitatibus neque.</p>
+                </div>
+                <div class="card-footer">
+                    <a href="#" class="btn btn-primary">Learn More</a>
                 </div>
             </div>
+        </div>
         <hr>
         <div class="row mb-4">
             <div class="col-md-8">
@@ -91,13 +91,13 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">
-{#                                <a href="{{ path('product.show', {id:property.id, slug:property.slug}) }}">{{ property.title }}</a>#}
+                            <a href="{{ path('product.show', {id:product.id, slug:product.slug}) }}">{{ product.name }}</a>
                             </h5>
-                            <p class="card-text">{{ product.name }}</p>
+                            <p class="card-text" style="font-weight: bold;">{{ product.name }}</p>
                             <p class="card-text"><img src="{{ product.image }}" alt="" width="100%"/></p>
                             <p class="card-text">{{ product.description }}</p>
-                            <p class="card-text">{{ product.price }} $</p>
-                            <p class="card-text text-primary">{{ product.category }}</p>
+                            <p class="text-warning" style="font-weight: bold;">{{ product.price | number_format(2,',',' ') }} $</p>
+                            <p class="card-text text-secondary">{{ product.category }}</p>
                             <p class="card-text text-primary">{{ product.createdAt | date('d/m/Y a H:i') }}</p>
                             <a href="#" class="btn btn-primary">Read</a>
                         </div>

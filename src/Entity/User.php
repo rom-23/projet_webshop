@@ -2,14 +2,16 @@
 
 namespace App\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity("username")
  */
-class User
+class User implements  UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -20,11 +22,15 @@ class User
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Length(min=4, max=100)
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
     private $email;
 
@@ -45,7 +51,7 @@ class User
 
 //    public function __construct()
 //    {
-//        $this->comments = new ArrayCollection();
+//        //$this->comments = new ArrayCollection();
 //    }
 
     public function getId(): ?int
@@ -132,9 +138,44 @@ class User
         return $this;
     }
 
+    /**
+     * Returns the roles granted to the user.
+     * @return array
+     */
+    public function getRoles()
+    {
+        return ['ROLE_ADMIN'];
+    }
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+    public function eraseCredentials()
+    {
+    }
+
+    public function serialize()
+    {
+        return serialize( [
+            $this -> id,
+            $this -> username,
+            $this -> password
+        ] );
+    }
+
+    public function unserialize( $serialized )
+    {
+        list(
+            $this -> id,
+            $this -> username,
+            $this -> password
+            ) = unserialize( $serialized, ['allowed_classes' => false] );
+    }
     public function __toString()
     {
-        return $this -> username;
+        return serialize($this->username);
     }
 
 }

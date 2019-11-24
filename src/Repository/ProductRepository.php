@@ -24,6 +24,8 @@ class ProductRepository extends ServiceEntityRepository
     public function findLatestProduct()
     {
         return $this -> findVisibleQuery()
+            ->orderBy('p.id', 'desc')
+            ->setMaxResults(8)
             -> getQuery()
             -> getResult();
     }
@@ -34,7 +36,7 @@ class ProductRepository extends ServiceEntityRepository
     private function findVisibleQuery()
     {
         return $this -> createQueryBuilder( 'p' );
-//            -> where( 'p.sold = false' );
+//            -> where( 'p.sold = 0' );
     }
 
 }

@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+{% block title product.name %}
+  {% block body %}
+      <div class="jumbotron">
+      <div class="container">
+      <div class="row">
+          <div class="col-md-8">
+              <h1>{{ product.name }}</h1>
+              <h4 class="text-success">Categorie : {{ product.category.title }}</h4>
+              <div class="metadata">Crée le {{ product.createdAt | date('d/m/y') }} à {{ product.createdAt | date('H:i') }} </div>
+              <div class="content">
+                  <img src="{{ product.image }}" alt="" width="75%">
+                  <h5>Description : </h5>
+                  <p>- {{ product.description | nl2br }}</p>
+              </div>
+          </div>
+          <div class="col-md-4">
+              <h3>Tailles disponibles</h3>
+              <ul class="list-group">
+                  {% for spec in product.specificities %}
+                      <li class="list-group-item">{{ spec.name }}</li>
+                  {% endfor %}
+              </ul>
+              <h3>Thematique</h3>
+              <ul class="list-group">
+                  {% for theme in product.themes %}
+                      <li class="list-group-item">{{ theme.name }}</li>
+                  {% endfor %}
+              </ul>
+              <h5>Prix</h5>
+              <div class="text-danger" style="font-weight: bold;font-size: 20px;">
+                  {{ product.price | number_format(2,',',' ') }} $
+              </div>
+              <a href="#" class="btn btn-primary">Ajouter au panier</a>
+              <a href="#" class="btn btn-primary">Contacter par email</a>
+          </div>
+      </div>
+      <div class="container mt-4">
+          <div class="row">
+              <div class="col-md-12">
+                  <h2>Images</h2>
+                  <ul class="list-group">
+                      {% for imag in product.images %}
+                          <li class="list-group-item"><img src="{{ imag.filename }}" alt="" width="50%"></li>
+                      {% endfor %}
+                  </ul>
+              </div>
+          </div>
+      </div>
+      <div class="container mt-4">
+          <div class="row">
+              <div class="col-md-12">
+                  <h2>Commentaires</h2>
+                  <ul class="list-group">
+                      {% for comment in product.comments %}
+                          <li class="list-group-item">{{ comment.user.username }} a écrit le {{ comment.createdAt | date('d/m/y') }} - <a href="#">voir</a></li>
+                      {% endfor %}
+                  </ul>
+              </div>
+          </div>
+      </div>
+  {% endblock %}
