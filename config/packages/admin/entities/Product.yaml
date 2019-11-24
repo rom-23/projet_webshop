@@ -2,12 +2,26 @@ easy_admin:
   entities:
     Product:
       class: App\Entity\Product
-#      form:
-#        fields:
-#          - {property: 'name'}
-#          - {property: 'description'}
-#          - {property: 'category'}
-#          - {property: 'image'}
-#          - {property: 'createdAt'}
-#          - {property: 'specificities'}
-#          - {property: 'comments'}
+      edit:
+        fields:
+          - { property: 'price', type: 'money', type_options: { currency: 'EUR' } }
+
+      list:
+        help: 'The items in this entity can NOT be deleted here, delete it in Comments & Images before'
+        actions:
+          - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+          - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+        fields: ['id',{ property: 'image', type: 'image', base_path: '/img/' } ,'name','description','price','category','themes','specificities','images','comments','sold','createdAt']
+      form:
+        fields:
+          - { type: 'group', label: 'Content'}
+          - {property: 'name'}
+          - { property: 'description'}
+          - {property: 'category'}
+          - {property: 'image'}
+          - {property: 'price'}
+          - {property: 'createdAt'}
+          - { type: 'group', label: 'Options'}
+          - {property: 'specificities'}
+          - {property: 'themes'}
+          - {property: 'sold'}

@@ -2,6 +2,13 @@ easy_admin:
   entities:
     Category:
       class: App\Entity\Category
+
+      list:
+        help: 'The items in this entity can NOT be deleted here, Products must be = 0'
+        actions:
+          - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+          - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+        fields: ['id','title','catDescription','products']
       form:
         fields:
           - {property: 'title'}

@@ -4,9 +4,13 @@ easy_admin:
       - label: 'Shop'
         icon: 'newspaper-o'
         children:
-          - {entity: 'Product', icon: 'store-alt', label: 'Products'}
+          - {entity: 'Product', icon: 'store-alt', label: 'Products', css_class: 'default', default: true}
           - {entity: 'Category', icon: 'layer-group', label: 'Categories'}
-          - {entity: 'User', icon: 'user', label: 'User'}
-          - {entity: 'Comment', icon: 'comments', label: 'Comments'}
           - {entity: 'Specificities', icon: 'list', label: 'Specificities'}
           - {entity: 'Image', icon: 'image', label: 'Images'}
+          - {entity: 'Theme', icon: 'clone', label: 'Thematic'}
+      - label: 'Users'
+        icon: 'user'
+        children:
+          - {entity: 'User', icon: 'user', label: 'User'}
+          - {entity: 'Comment', icon: 'comments', label: 'Comments'}

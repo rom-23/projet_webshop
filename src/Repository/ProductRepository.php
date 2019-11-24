@@ -21,7 +21,7 @@ class ProductRepository extends ServiceEntityRepository
     /**
      * @return Product[]
      */
-    public function findAllProduct()
+    public function findLatestProduct()
     {
         return $this -> findVisibleQuery()
             -> getQuery()

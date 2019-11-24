@@ -16,7 +16,7 @@ class ProductController extends AbstractController
      */
     public function product( ProductRepository $repository )
     {
-        $products = $repository -> findAllProduct();
+        $products = $repository -> findLatestProduct();
         return $this -> render( 'product/Product.html.twig', [
             'products'     => $products,
             'current_menu' => 'products'

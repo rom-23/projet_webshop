@@ -63,6 +63,21 @@ class Product
      */
     private $specificities;
 
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $price;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Theme", inversedBy="products")
+     */
+    private $themes;
+
+    /**
+     * @ORM\Column(type="boolean", options={"default" = 0})
+     */
+    private $sold;
+
 
     /**
      * Product constructor.
@@ -71,8 +86,8 @@ class Product
     {
         $this -> createdAt = new \DateTime();
         $this -> specificities = new ArrayCollection();
-        $this -> images = new ArrayCollection();
         $this -> comments = new ArrayCollection();
+        $this -> themes = new ArrayCollection();
     }
 
 
@@ -120,6 +135,18 @@ class Product
         return $this;
     }
 
+    public function getPrice(): ?float
+    {
+        return $this -> price;
+    }
+
+    public function setPrice( float $price ): self
+    {
+        $this -> price = $price;
+
+        return $this;
+    }
+
     public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this -> createdAt;
@@ -128,10 +155,19 @@ class Product
     public function setCreatedAt( \DateTimeInterface $createdAt ): self
     {
         $this -> createdAt = $createdAt;
+        return $this;
+    }
+   public function getSold(): ?bool
+    {
+        return $this->sold;
+    }
+
+    public function setSold(bool $sold): self
+    {
+        $this->sold = $sold;
 
         return $this;
     }
-
     /**
      * @return mixed
      */
@@ -176,35 +212,35 @@ class Product
         return $this -> images;
     }
 
-    /**
-     * @param Image $image
-     * @return $this
-     */
-    public function addImage( Image $image ): self
-    {
-        if(!$this -> images -> contains( $image )) {
-            $this -> images[] = $image;
-            $image -> setProducts( $this );
-        }
-        return $this;
-    }
-
-    /**
-     * @param Image $image
-     * @return $this
-     */
-    public function removeImage( Image $image ): self
-    {
-        if($this -> images -> contains( $image )) {
-            $this -> images -> removeElement( $image );
-            // set the owning side to null (unless already changed)
-            if($image -> getProducts() === $this) {
-                $image -> setProducts( null );
-            }
-        }
-
-        return $this;
-    }
+//    /**
+//     * @param Image $image
+//     * @return $this
+//     */
+//    public function addImage( Image $image ): self
+//    {
+//        if(!$this -> images -> contains( $image )) {
+//            $this -> images[] = $image;
+//            $image -> setProducts( $this );
+//        }
+//        return $this;
+//    }
+//
+//    /**
+//     * @param Image $image
+//     * @return $this
+//     */
+//    public function removeImage( Image $image ): self
+//    {
+//        if($this -> images -> contains( $image )) {
+//            $this -> images -> removeElement( $image );
+//            // set the owning side to null (unless already changed)
+//            if($image -> getProducts() === $this) {
+//                $image -> setProducts( null );
+//            }
+//        }
+//
+//        return $this;
+//    }
 
     /**
      * @return Collection|Comment[]
@@ -287,9 +323,46 @@ class Product
         return $this;
     }
 
+    /**
+     * @return Collection|Theme[]
+     */
+    public function getThemes(): Collection
+    {
+        return $this -> themes;
+    }
+
+    public function setThemes( ?Theme $theme ): self
+    {
+        $this -> themes = $theme;
+        return $this;
+    }
+
+    public function addTheme( Theme $theme ): self
+    {
+        if(!$this -> themes -> contains( $theme )) {
+            $this -> themes[] = $theme;
+            $theme -> addProduct( $this );
+        }
+        return $this;
+    }
+
+    public function removeTheme( Theme $theme ): self
+    {
+        if($this -> themes -> contains( $theme )) {
+            $this -> themes -> removeElement( $theme );
+            $theme -> removeProduct( $this );
+            if($theme -> getProducts() === $this) {
+                $theme -> setProducts( null );
+            }
+        }
+        return $this;
+    }
+
     public function __toString()
     {
         return $this -> name;
     }
+
+
 
 }

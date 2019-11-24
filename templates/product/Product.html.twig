@@ -94,7 +94,9 @@
 {#                                <a href="{{ path('product.show', {id:property.id, slug:property.slug}) }}">{{ property.title }}</a>#}
                             </h5>
                             <p class="card-text">{{ product.name }}</p>
+                            <p class="card-text"><img src="{{ product.image }}" alt="" width="100%"/></p>
                             <p class="card-text">{{ product.description }}</p>
+                            <p class="card-text">{{ product.price }} $</p>
                             <p class="card-text text-primary">{{ product.category }}</p>
                             <p class="card-text text-primary">{{ product.createdAt | date('d/m/Y a H:i') }}</p>
                             <a href="#" class="btn btn-primary">Read</a>

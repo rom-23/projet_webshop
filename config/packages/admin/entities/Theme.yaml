@@ -1,12 +1,14 @@
 easy_admin:
   entities:
-    Image:
-      class: App\Entity\Image
+    Theme:
+      class: App\Entity\Theme
       list:
-
         help: 'The items in this entity can be directly deleted here'
         actions:
           - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
           - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
-        fields: ['id','filename','products','createdAt', { property: 'filename', type: 'image', base_path: '/img/' } ]
-
+        fields: ['id','name','products','createdAt']
+      form:
+        fields:
+          - {property: 'name'}
+          - {property: 'createdAt'}

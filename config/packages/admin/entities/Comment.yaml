@@ -2,3 +2,10 @@ easy_admin:
   entities:
     Comment:
       class: App\Entity\Comment
+
+      list:
+        help: 'The items in this entity can be deleted directly here'
+        actions:
+          - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+          - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+        fields: ['id','author','user','products','content','createdAt']

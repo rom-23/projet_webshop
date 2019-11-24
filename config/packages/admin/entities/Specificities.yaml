@@ -2,6 +2,13 @@ easy_admin:
   entities:
     Specificities:
       class: App\Entity\Specificities
+
+      list:
+        help: 'The items in this entity can be directly deleted here'
+        actions:
+          - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
+          - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
+        fields: ['id','name','products']
       form:
         fields:
           - {property: 'name'}
