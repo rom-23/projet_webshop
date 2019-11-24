@@ -3,14 +3,36 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Entity\ProductSearch;
+use App\Form\ProductSearchType;
 use App\Repository\ProductRepository;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Component\Pager\PaginatorInterface;
 
 class ProductController extends AbstractController
 {
+    /**
+     * @var ProductRepository
+     */
+    private $repository;
+
+    /**
+     * @var ObjectManager
+     */
+    private $em;
+
+    /**
+     * PropertyController constructor.
+     * @param ProductRepository $repository
+     */
+    public function __construct( ProductRepository $repository)
+    {
+        $this -> repository = $repository;
+    }
+
     /**
      * @Route("/product", name="product")
      * @param ProductRepository $repository
@@ -26,11 +48,38 @@ class ProductController extends AbstractController
     }
 
     /**
+     * @Route("/list", name="product.list")
+     * @param PaginatorInterface $paginator
+     * @param Request $request
+     * @return Response
+     * Tous les produits ( page list ) avec pagination et filtres de recherche
+     */
+    public function list( PaginatorInterface $paginator, Request $request ): Response
+    {
+        $search = new ProductSearch();
+        $form = $this -> createForm( ProductSearchType::class, $search );
+        $form -> handleRequest( $request );
+
+        $products = $paginator -> paginate(
+            $this -> repository -> findAllVisibleQuery($search),
+            $request -> query -> getInt( 'page', 1 ),
+            9
+        );
+        return $this -> render( 'product/ProductList.html.twig', [
+            'pagination' => $paginator,
+            'products'   => $products,
+            'current_menu' => 'products',
+            'form'       => $form -> createView()
+        ] );
+    }
+
+    /**
      * @Route("/product/{slug}-{id}", name="product.show", requirements={"slug": "[a-z0-9\-]*"})
      * @param Product $product
      * @param string $slug
      * @param Request $request
      * @return Response;
+     * Affiche un produit en particulier et envoi de mail
      */
     public function show( Product $product, string $slug, Request $request ): Response
     {
@@ -54,7 +103,7 @@ class ProductController extends AbstractController
 //            ] );
 //        }
         return $this -> render( 'product/Show.html.twig', [
-            'product' => $product,
+            'product'      => $product,
             'current_menu' => 'products'
         ] );
     }

@@ -30,20 +30,25 @@ class ProductFixtures extends Fixture
         for ($i = 1; $i <= 3; $i++) {
             $category = new Category();
             $category
-                -> setTitle( $faker -> sentence(2) )
+                -> setTitle( $faker -> words( 3, true ) )
                 -> setCatDescription( $faker -> paragraph() );
             $manager -> persist( $category );
             // fake pour produits
             for ($j = 1; $j <= mt_rand( 4, 6 ); $j++) {
                 $product = new Product();
-                $product
-                    -> setName( $faker -> sentence() )
-                    -> setDescription( $faker -> sentence() )
-                    -> setCategory( $category )
-                    -> setImage( $faker -> imageUrl() )
-                    -> setCreatedAt( $faker -> dateTimeBetween( '-6 months' ) )
-                    -> setPrice( $faker -> randomFloat(2,10,200) )
-                    -> setSold( false );
+                try {
+                    $product
+                        -> setName( $faker -> words( 2, true ) )
+                        -> setDescription( $faker -> sentence() )
+                        -> setCategory( $category )
+                        -> setImage( $faker -> imageUrl() )
+                        -> setCreatedAt( $faker -> dateTimeBetween( '-6 months' ) )
+                        -> setPrice( $faker -> randomFloat( 2, 10, 200 ) )
+                        -> setSold( false )
+                        -> setImageFile( null )
+                        -> setUpdatedAt( $faker -> dateTimeBetween( '-6 months' ) );
+                } catch (\Exception $e) {
+                }
 
                 $manager -> persist( $product );
                 // image

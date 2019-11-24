@@ -2,16 +2,12 @@ easy_admin:
   entities:
     Product:
       class: App\Entity\Product
-      edit:
-        fields:
-          - { property: 'price', type: 'money', type_options: { currency: 'EUR' } }
-
       list:
         help: 'The items in this entity can NOT be deleted here, delete it in Comments & Images before'
         actions:
           - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
           - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
-        fields: ['id',{ property: 'image', type: 'image', base_path: '/img/' } ,'name','description','price','category','themes','specificities','images','comments','sold','createdAt']
+        fields: ['id',{ property: 'image', type: 'image', base_path: '%app.path.product_image%',label: 'Photo' } ,'name','description','price','category','themes','specificities','images','comments','sold','createdAt']
       form:
         fields:
           - { type: 'group', label: 'Content'}
@@ -19,9 +15,14 @@ easy_admin:
           - { property: 'description'}
           - {property: 'category'}
           - {property: 'image'}
-          - {property: 'price'}
+          - {property: 'imageFile', type: 'vich_image'}
+          - {property: 'updatedAt'}
+          - { property: 'price', type: 'money', type_options: { currency: 'EUR' } }
           - {property: 'createdAt'}
           - { type: 'group', label: 'Options'}
           - {property: 'specificities'}
           - {property: 'themes'}
           - {property: 'sold'}
+      show:
+        fields:
+          - { property: 'image', type: 'image', base_path: '%app.path.product_image%' }

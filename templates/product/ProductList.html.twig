@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% block title 'All Products' %}
+
+  {% block stylesheets %}{% endblock %}
+  {% block body %}
+      <div class="jumbotron">
+          <div class="container">
+              {{ form_start(form) }}
+              <div class="form-row align-items-end">
+                  <div class="col">
+                      {{ form_row(form.minPrice) }}
+                  </div>
+                  <div class="col">
+                      {{ form_row(form.maxPrice) }}
+                  </div>
+                  <div class="col">
+                      {{ form_row(form.options) }}
+                  </div>
+                  <div class="col">
+                      <div class="form-group">
+                          <button class="btn btn-primary">
+                              Rechercher
+                          </button>
+                      </div>
+
+                  </div>
+              </div>
+              {{ form_end(form) }}
+          </div>
+      </div>
+      <div class="container">
+          <h1>All products</h1>
+          <div class="row">
+              {% for product in products %}
+                  <div class="col-md-4">
+                      {% include('product/_property.html.twig') %}
+                  </div>
+              {% endfor %}
+          </div>
+          <div class="pagination">
+              {{ knp_pagination_render(products) }}
+          </div>
+      </div>
+
+  {% endblock %}

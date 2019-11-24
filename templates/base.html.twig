@@ -25,6 +25,13 @@
                        href="{{ path('product') }}">Products
                     </a>
                 </li>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {% if current_menu is defined and current_menu == 'products' %}  active {% endif %}"
+                           href="{{ path('product.list') }}">All Products
+                        </a>
+                    </li>
+
                 <li class="nav-item">
                     <a class="nav-link" href="/admin">Admin</a>
                 </li>

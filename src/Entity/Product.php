@@ -2,16 +2,23 @@
 
 namespace App\Entity;
 
+use DateTime;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Exception;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Cocur\Slugify\Slugify;
+use Symfony\Component\HttpFoundation\File\File;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
  * @UniqueEntity("name")
+ * @Vich\Uploadable
  */
 class Product
 {
@@ -40,8 +47,8 @@ class Product
     private $category;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=5,max=255)
+     * @var string|null
+     * @ORM\Column(type="string", length=255, nullable=true))
      */
     private $image;
 
@@ -80,18 +87,55 @@ class Product
      */
     private $sold;
 
+    /**
+     * @Assert\Image(mimeTypes="image/jpeg")
+     * @Vich\UploadableField(mapping="product_images", fileNameProperty="image")
+     * @var File|null
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var DateTime
+     */
+    private $updatedAt;
+
 
     /**
      * Product constructor.
      */
     public function __construct()
     {
-        $this -> createdAt = new \DateTime();
+        $this -> createdAt = new DateTime();
+        $this -> updatedAt = new \DateTime();
         $this -> specificities = new ArrayCollection();
         $this -> comments = new ArrayCollection();
         $this -> themes = new ArrayCollection();
     }
 
+    /**
+     *
+     * @param File|null $imageFile
+     * @return Product
+     * @throws Exception
+     */
+    public function setImageFile( ?File $imageFile ): Product
+    {
+        $this -> imageFile = $imageFile;
+        if($this -> imageFile instanceof UploadedFile) {
+            $this -> updatedAt = new \DateTime( 'now' );
+        }
+        return $this;
+    }
+
+    /**
+     * Get the value of Image File
+     * @return File|null
+     */
+    public function getImageFile()
+    {
+        return $this -> imageFile;
+    }
 
     /**
      * @return int|null
@@ -157,12 +201,12 @@ class Product
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this -> createdAt;
     }
 
-    public function setCreatedAt( \DateTimeInterface $createdAt ): self
+    public function setCreatedAt( DateTimeInterface $createdAt ): self
     {
         $this -> createdAt = $createdAt;
         return $this;
@@ -201,16 +245,16 @@ class Product
     /**
      * @return string|null
      */
-    public function getImage(): ?string
+    public function getImage()
     {
         return $this -> image;
     }
 
     /**
-     * @param string $image
-     * @return $this
+     * @param null|string $image
+     * @return Product
      */
-    public function setImage( string $image ): self
+    public function setImage( ?string $image ): product
     {
         $this -> image = $image;
         return $this;
@@ -370,10 +414,22 @@ class Product
         return $this;
     }
 
+
+    public function getUpdatedAt(): ?DateTimeInterface
+    {
+        return $this -> updatedAt;
+    }
+
+    public function setUpdatedAt( ?DateTimeInterface $updatedAt ): self
+    {
+        $this -> updatedAt = $updatedAt;
+
+        return $this;
+    }
+
     public function __toString()
     {
         return $this -> name;
     }
-
 
 }
