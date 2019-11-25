@@ -68,8 +68,8 @@ class ProductRepository extends ServiceEntityRepository
      */
     private function findVisibleQuery()
     {
-        return $this -> createQueryBuilder( 'p' )
-            -> where( 'p.sold = 0' );
+        return $this -> createQueryBuilder( 'p' );
+            //-> where( 'p.sold = 0' );
     }
 
 }
