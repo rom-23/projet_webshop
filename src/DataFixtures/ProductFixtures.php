@@ -45,7 +45,6 @@ class ProductFixtures extends Fixture
                         -> setCreatedAt( $faker -> dateTimeBetween( '-6 months' ) )
                         -> setPrice( $faker -> randomFloat( 2, 10, 200 ) )
                         -> setSold( false )
-                        -> setImageFile( null )
                         -> setUpdatedAt( $faker -> dateTimeBetween( '-6 months' ) );
                 } catch (\Exception $e) {
                 }

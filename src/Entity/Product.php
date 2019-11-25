@@ -47,12 +47,6 @@ class Product
     private $category;
 
     /**
-     * @var string|null
-     * @ORM\Column(type="string", length=255, nullable=true))
-     */
-    private $image;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="products")
      */
     private $images;
@@ -95,15 +89,19 @@ class Product
     private $imageFile;
 
     /**
+     * @var string|null
+     * @ORM\Column(type="string", length=255, nullable=true))
+     */
+    private $image;
+
+    /**
      * @ORM\Column(type="datetime")
      * @var DateTime
      */
     private $updatedAt;
 
 
-    /**
-     * Product constructor.
-     */
+
     public function __construct()
     {
         $this -> createdAt = new DateTime();
@@ -119,11 +117,15 @@ class Product
      * @return Product
      * @throws Exception
      */
-    public function setImageFile( ?File $imageFile ): Product
+    public function setImageFile( ?File $imageFile = null)
     {
         $this -> imageFile = $imageFile;
-        if($this -> imageFile instanceof UploadedFile) {
-            $this -> updatedAt = new \DateTime( 'now' );
+//        if($this -> imageFile instanceof UploadedFile) {
+//            $this -> updatedAt = new \DateTime( 'now' );
+//        }
+//
+        if ($this -> imageFile instanceof UploadedFile) {
+            $this->updatedAt = new \DateTime('now');
         }
         return $this;
     }

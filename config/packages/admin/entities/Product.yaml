@@ -7,15 +7,15 @@ easy_admin:
         actions:
           - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
           - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
-        fields: ['id',{ property: 'image', type: 'image', base_path: '%app.path.product_image%',label: 'Photo' } ,'name','description','price','category','themes','specificities','images','comments','sold','createdAt']
+        fields: ['id',{ property: 'image', type: 'image', base_path: '%app.path.product_images%',label: 'Photo' } ,'name','description','price','category','themes','specificities','images','comments','sold','createdAt']
       form:
         fields:
           - { type: 'group', label: 'Content'}
           - {property: 'name'}
           - { property: 'description'}
           - {property: 'category'}
-          - {property: 'image'}
-          - {property: 'imageFile', type: 'vich_image'}
+#          - {property: 'image', label: 'Image file'}
+          - {property: 'imageFile', type: 'vich_image', label: 'Apercu image'}
           - {property: 'updatedAt'}
           - { property: 'price', type: 'money', type_options: { currency: 'EUR' } }
           - {property: 'createdAt'}
@@ -25,4 +25,4 @@ easy_admin:
           - {property: 'sold'}
       show:
         fields:
-          - { property: 'image', type: 'image', base_path: '%app.path.product_image%' }
+          - { property: 'image', type: 'image', base_path: '%app.path.product_images%' }
