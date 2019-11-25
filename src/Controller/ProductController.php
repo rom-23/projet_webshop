@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Contact;
 use App\Entity\Product;
 use App\Entity\ProductSearch;
+use App\Form\ContactType;
 use App\Form\ProductSearchType;
+use App\Notification\ContactNotif;
 use App\Repository\ProductRepository;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,7 +31,7 @@ class ProductController extends AbstractController
      * PropertyController constructor.
      * @param ProductRepository $repository
      */
-    public function __construct( ProductRepository $repository)
+    public function __construct( ProductRepository $repository )
     {
         $this -> repository = $repository;
     }
@@ -61,15 +64,15 @@ class ProductController extends AbstractController
         $form -> handleRequest( $request );
 
         $products = $paginator -> paginate(
-            $this -> repository -> findAllVisibleQuery($search),
+            $this -> repository -> findAllVisibleQuery( $search ),
             $request -> query -> getInt( 'page', 1 ),
             9
         );
         return $this -> render( 'product/ProductList.html.twig', [
-            'pagination' => $paginator,
-            'products'   => $products,
+            'pagination'   => $paginator,
+            'products'     => $products,
             'current_menu' => 'products',
-            'form'       => $form -> createView()
+            'form'         => $form -> createView()
         ] );
     }
 
@@ -78,10 +81,11 @@ class ProductController extends AbstractController
      * @param Product $product
      * @param string $slug
      * @param Request $request
+     * @param ContactNotif $notification
      * @return Response;
      * Affiche un produit en particulier et envoi de mail
      */
-    public function show( Product $product, string $slug, Request $request ): Response
+    public function show( Product $product, string $slug, Request $request, ContactNotif $notification ): Response
     {
         if($product -> getSlug() !== $slug) {
             return $this -> redirectToRoute( 'product.show', [
@@ -89,22 +93,23 @@ class ProductController extends AbstractController
                 'slug' => $product -> getSlug()
             ], 301 );
         }
-//        $contact = new Contact2();
-//        $contact -> setProperty( $property );
-//        $form = $this -> createForm( ContactType::class, $contact );
-//        $form -> handleRequest( $request );
-//
-//        if($form -> isSubmitted() && $form -> isValid()) {
-//            $notification -> notify( $contact );
-//            $this -> addFlash( 'success', 'Email envoyé' );
-//            return $this -> redirectToRoute( 'property.show', [
-//                'id'   => $property -> getId(),
-//                'slug' => $property -> getSlug()
-//            ] );
-//        }
+        $contact = new Contact();
+        $contact -> setProduct( $product );
+        $form = $this -> createForm( ContactType::class, $contact );
+        $form -> handleRequest( $request );
+
+        if($form -> isSubmitted() && $form -> isValid()) {
+            $notification -> notify( $contact );
+            $this -> addFlash( 'success', 'Email envoyé' );
+            return $this -> redirectToRoute( 'product.show', [
+                'id'   => $product -> getId(),
+                'slug' => $product -> getSlug()
+            ] );
+        }
         return $this -> render( 'product/Show.html.twig', [
             'product'      => $product,
-            'current_menu' => 'products'
+            'current_menu' => 'products',
+            'form'         => $form -> createView()
         ] );
     }
 }

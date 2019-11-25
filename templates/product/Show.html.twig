@@ -3,13 +3,30 @@
   {% block body %}
       <div class="jumbotron">
       <div class="container">
+      {% for message in app.flashes('success') %}
+          <div class="alert alert-success">
+              {{ message }}
+          </div>
+      {% endfor %}
+      {% if not form.vars.valid %}
+          <div class="alert alert-danger">
+              Erreur dans le formulaire
+          </div>
+      {% endif %}
       <div class="row">
           <div class="col-md-8">
               <h1>{{ product.name }}</h1>
               <h4 class="text-success">Categorie : {{ product.category.title }}</h4>
               <div class="metadata">Crée le {{ product.createdAt | date('d/m/y') }} à {{ product.createdAt | date('H:i') }} </div>
               <div class="content">
-                  <img src="{{ product.image }}" alt="" width="75%">
+                  {% if product.image %}
+                      <img src="{{ vich_uploader_asset(product, 'imageFile') }}" alt="card-img-top"
+                           style="width:100%;height:auto;">
+                  {% else %}
+                      <img src="{{ 'uploads/images/products/empty.jpg' }}" alt="card-img-top"
+                           style="width:100%;height:auto;">
+
+                  {% endif %}
                   <h5>Description : </h5>
                   <p>- {{ product.description | nl2br }}</p>
               </div>
@@ -33,6 +50,18 @@
               </div>
               <a href="#" class="btn btn-primary">Ajouter au panier</a>
               <a href="#" class="btn btn-primary">Contacter par email</a>
+              <div class="mt-4">
+                  {{ form_start(form) }}
+                  <div class="container">
+                      {{ form_widget(form) }}
+                      <div class="form-group">
+                          <button class="btn btn-primary">
+                              Envoyer
+                          </button>
+                      </div>
+                      {{ form_end(form) }}
+                  </div>
+              </div>
           </div>
       </div>
       <div class="container mt-4">
@@ -41,12 +70,13 @@
                   <h2>Images</h2>
                   <ul class="list-group">
                       {% for imag in product.images %}
-                          <li class="list-group-item"><img src="{{ imag.filename }}" alt="" width="50%"></li>
+                          <li class="list-group-item"><img src="{{ imag.fileName }}" alt="" width="50%"></li>
                       {% endfor %}
                   </ul>
               </div>
           </div>
       </div>
+
       <div class="container mt-4">
           <div class="row">
               <div class="col-md-12">
