@@ -77,7 +77,24 @@
               </div>
           </div>
       </div>
-
+      <div class="container mt-4">
+      {% if app.user %}
+          User  -> {{ userConnect }}
+          <h5>Laisser un commentaire</h5>
+            {{ form_start(commentForm) }}
+{#          {{ form_row(commentForm.author) }}#}
+{#          {{ form_row(commentForm.content) }}#}
+{#          {{ form_row(commentForm.user) }}#}
+          {{ form_widget(commentForm)}}
+          <button type="submit" class="btn btn-success">
+              Commenter
+          </button>
+          {{ form_end(commentForm) }}
+      {% else %}
+          <h2>Vous ne pouvez pas poster d'articles si vous n'etes pas connecté</h2>
+          <a href="{{ path('login') }}" class="btn btn-primary">Se connecter</a>
+      {% endif %}
+      </div>
       <div class="container mt-4">
           <div class="row">
               <div class="col-md-12">

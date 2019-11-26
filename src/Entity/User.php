@@ -7,11 +7,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity("username")
  */
-class User implements  UserInterface, \Serializable
+class User implements UserInterface, \Serializable
 {
     /**
      * @ORM\Id()
@@ -35,6 +36,10 @@ class User implements  UserInterface, \Serializable
     private $email;
 
     /**
+     * @Assert\EqualTo(propertyPath="password",message="Vous n'avez pas tapé le meme mot de passe")
+     */
+    private $confirmPassword;
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $password;
@@ -49,6 +54,23 @@ class User implements  UserInterface, \Serializable
      */
     private $createdAt;
 
+
+    /**
+     * @return mixed
+     */
+    public function getConfirmPassword()
+    {
+        return $this -> confirmPassword;
+    }
+
+    /**
+     * @param mixed $confirmPassword
+     */
+    public function setConfirmPassword( $confirmPassword ): void
+    {
+        $this -> confirmPassword = $confirmPassword;
+    }
+
 //    public function __construct()
 //    {
 //        //$this->comments = new ArrayCollection();
@@ -56,41 +78,41 @@ class User implements  UserInterface, \Serializable
 
     public function getId(): ?int
     {
-        return $this->id;
+        return $this -> id;
     }
 
     public function getUsername(): ?string
     {
-        return $this->username;
+        return $this -> username;
     }
 
-    public function setUsername(string $username): self
+    public function setUsername( string $username ): self
     {
-        $this->username = $username;
+        $this -> username = $username;
 
         return $this;
     }
 
     public function getEmail(): ?string
     {
-        return $this->email;
+        return $this -> email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail( string $email ): self
     {
-        $this->email = $email;
+        $this -> email = $email;
 
         return $this;
     }
 
     public function getPassword(): ?string
     {
-        return $this->password;
+        return $this -> password;
     }
 
-    public function setPassword(string $password): self
+    public function setPassword( string $password ): self
     {
-        $this->password = $password;
+        $this -> password = $password;
 
         return $this;
     }
@@ -100,40 +122,17 @@ class User implements  UserInterface, \Serializable
      */
     public function getComments(): Collection
     {
-        return $this->comments;
+        return $this -> comments;
     }
-
-//    public function addComment(Comment $comment): self
-//    {
-//        if (!$this->comments->contains($comment)) {
-//            $this->comments[] = $comment;
-//            $comment->setUser($this);
-//        }
-//
-//        return $this;
-//    }
-//
-//    public function removeComment(Comment $comment): self
-//    {
-//        if ($this->comments->contains($comment)) {
-//            $this->comments->removeElement($comment);
-//            // set the owning side to null (unless already changed)
-//            if ($comment->getUser() === $this) {
-//                $comment->setUser(null);
-//            }
-//        }
-//
-//        return $this;
-//    }
 
     public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->createdAt;
+        return $this -> createdAt;
     }
 
-    public function setCreatedAt(?\DateTimeInterface $createdAt): self
+    public function setCreatedAt( ?\DateTimeInterface $createdAt ): self
     {
-        $this->createdAt = $createdAt;
+        $this -> createdAt = $createdAt;
 
         return $this;
     }
@@ -144,7 +143,11 @@ class User implements  UserInterface, \Serializable
      */
     public function getRoles()
     {
-        return ['ROLE_ADMIN'];
+        if($this -> username === 'admin') {
+            return ['ROLE_ADMIN'];
+        } else {
+            return ['ROLE_USER'];
+        }
     }
 
     public function getSalt()
@@ -173,9 +176,10 @@ class User implements  UserInterface, \Serializable
             $this -> password
             ) = unserialize( $serialized, ['allowed_classes' => false] );
     }
+
     public function __toString()
     {
-        return serialize($this->username);
+        return serialize( $this -> username );
     }
 
 }

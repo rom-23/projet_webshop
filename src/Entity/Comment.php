@@ -137,7 +137,7 @@ class Comment
     }
 
     /**
-     * @param User|null $user
+     * @param User|null|string $user
      * @return $this
      */
     public function setUser( ?User $user ): self
