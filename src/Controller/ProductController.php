@@ -101,20 +101,21 @@ class ProductController extends AbstractController
                 'slug' => $product -> getSlug()
             ], 301 );
         }
-         $userlog = $this->get('security.token_storage')->getToken()->getUser();
+        $userlog = $this -> get( 'security.token_storage' ) -> getToken() -> getUser();
         $comment = new Comment();
-        $formComment = $this -> createForm( CommentType::class, $comment);
+        $formComment = $this -> createForm( CommentType::class, $comment );
         $formComment -> handleRequest( $request );
         if($formComment -> isSubmitted() && $formComment -> isValid()) {
             $comment
                 -> setCreatedAt( new \DateTime() )
+                -> setAuthor( $userlog -> getUserName() )
                 -> setProducts( $product )
-                ->setUser($userlog);
+                -> setUser( $userlog );
 
             $manager -> persist( $comment );
             $manager -> flush();
             return $this -> redirectToRoute( 'product.show', [
-                'id' => $product -> getId(),
+                'id'   => $product -> getId(),
                 'slug' => $product -> getSlug()
             ] );
         }
@@ -138,7 +139,7 @@ class ProductController extends AbstractController
             'current_menu' => 'products',
             'form'         => $form -> createView(),
             'commentForm'  => $formComment -> createView(),
-            'userConnect'=>$this->getUser()
+            'userConnect'  => $this -> getUser()
         ] );
     }
 }

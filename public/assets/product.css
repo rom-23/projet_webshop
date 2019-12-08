@@ -1,0 +1,43 @@
+
+.carousel-item {
+    height: 50vh;
+    min-height: 250px;
+    background: no-repeat center center scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.portfolio-item {
+    margin-bottom: 30px;
+}
+.bgimg {
+    background-image: url('/uploads/files/background6.jpg');
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+}
+
+.lastProducts .card-header{
+background-color: rgba(28, 80, 233, 0.85);
+    opacity: 0.8;
+}
+
+.lastProducts .card-footer{
+    background-color: rgba(28, 80, 233, 0.85);
+    opacity: 0.8;
+}
+.contentSection {
+    background: linear-gradient(to bottom, rgba(48, 147, 226, 0.98) 0%, rgba(175, 172, 176, 0.9) 100%) no-repeat scroll center;
+}
+.pageTop{
+    margin-top: 50px;
+    margin-bottom: 1em;
+    padding: 2em;
+    background: linear-gradient(to bottom, rgba(0, 87, 226, 0.7) 0%, rgba(255, 255, 255, 0.99) 100%) no-repeat scroll center;
+}
+
+

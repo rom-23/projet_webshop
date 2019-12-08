@@ -1,110 +1,148 @@
 {% extends 'base.html.twig' %}
 {% block title product.name %}
-  {% block body %}
-      <div class="jumbotron">
-      <div class="container">
-      {% for message in app.flashes('success') %}
-          <div class="alert alert-success">
-              {{ message }}
-          </div>
-      {% endfor %}
-      {% if not form.vars.valid %}
-          <div class="alert alert-danger">
-              Erreur dans le formulaire
-          </div>
-      {% endif %}
-      <div class="row">
-          <div class="col-md-8">
-              <h1>{{ product.name }}</h1>
-              <h4 class="text-success">Categorie : {{ product.category.title }}</h4>
-              <div class="metadata">Crée le {{ product.createdAt | date('d/m/y') }} à {{ product.createdAt | date('H:i') }} </div>
-              <div class="content">
-                  {% if product.image %}
-                      <img src="{{ vich_uploader_asset(product, 'imageFile') }}" alt="card-img-top"
-                           style="width:100%;height:auto;">
-                  {% else %}
-                      <img src="{{ 'uploads/images/products/empty.jpg' }}" alt="card-img-top"
-                           style="width:100%;height:auto;">
 
-                  {% endif %}
-                  <h5>Description : </h5>
-                  <p>- {{ product.description | nl2br }}</p>
-              </div>
-          </div>
-          <div class="col-md-4">
-              <h3>Tailles disponibles</h3>
-              <ul class="list-group">
-                  {% for spec in product.specificities %}
-                      <li class="list-group-item">{{ spec.name }}</li>
-                  {% endfor %}
-              </ul>
-              <h3>Thematique</h3>
-              <ul class="list-group">
-                  {% for theme in product.themes %}
-                      <li class="list-group-item">{{ theme.name }}</li>
-                  {% endfor %}
-              </ul>
-              <h5>Prix</h5>
-              <div class="text-danger" style="font-weight: bold;font-size: 20px;">
-                  {{ product.price | number_format(2,',',' ') }} $
-              </div>
-              <a href="#" class="btn btn-primary">Ajouter au panier</a>
-              <a href="#" class="btn btn-primary" id="contactButton" {% if form.vars.submitted %}
-                  style="display: none;"{% endif %}>Contactez agence</a>
-              <div id="contactForm" class="mt-4" {% if not form.vars.submitted %} style="display: none;"{% endif %}>
-                  {{ form_start(form) }}
-                  <div class="container">
-                      {{ form_widget(form) }}
-                      <div class="form-group">
-                          <button class="btn btn-primary">
-                              Envoyer
-                          </button>
-                      </div>
-                      {{ form_end(form) }}
-                  </div>
-              </div>
-          </div>
-      </div>
-      <div class="container mt-4">
-          <div class="row">
-              <div class="col-md-12">
-                  <h2>Images</h2>
-                  <ul class="list-group">
-                      {% for imag in product.images %}
-                          <li class="list-group-item"><img src="{{ imag.fileName }}" alt="" width="50%"></li>
-                      {% endfor %}
-                  </ul>
-              </div>
-          </div>
-      </div>
-      <div class="container mt-4">
-      {% if app.user %}
-          User  -> {{ userConnect }}
-          <h5>Laisser un commentaire</h5>
-            {{ form_start(commentForm) }}
-{#          {{ form_row(commentForm.author) }}#}
-{#          {{ form_row(commentForm.content) }}#}
-{#          {{ form_row(commentForm.user) }}#}
-          {{ form_widget(commentForm)}}
-          <button type="submit" class="btn btn-success">
-              Commenter
-          </button>
-          {{ form_end(commentForm) }}
-      {% else %}
-          <h2>Vous ne pouvez pas poster d'articles si vous n'etes pas connecté</h2>
-          <a href="{{ path('login') }}" class="btn btn-primary">Se connecter</a>
-      {% endif %}
-      </div>
-      <div class="container mt-4">
-          <div class="row">
-              <div class="col-md-12">
-                  <h2>Commentaires</h2>
-                  <ul class="list-group">
-                      {% for comment in product.comments %}
-                          <li class="list-group-item">{{ comment.user.username }} a écrit le {{ comment.createdAt | date('d/m/y') }} - <a href="#">voir</a></li>
-                      {% endfor %}
-                  </ul>
-              </div>
-          </div>
-      </div>
-  {% endblock %}
+{% block stylesheets %}
+    {#<link href="assets/product.css" rel="stylesheet">#}
+{% endblock %}
+  {% block body %}
+<div>
+    <div class="pageTop">
+        <div class="container">
+            <h1 class="display-4">{{ product.name }}</h1>
+            <h4 class="text-success">Categorie : {{ product.category.title }}</h4>
+        </div>
+    </div>
+    <div class="bgimg">
+        <div class="container">
+            {% if app.request.hasPreviousSession %}
+            {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+            {% endfor %}
+            {% endif %}
+            {% if not form.vars.valid %}
+                <div class="alert alert-danger">
+                    Erreur dans le formulaire
+                </div>
+            {% endif %}
+            <div class="card mb-3 p-3">
+                <div class="row">
+                    <div class="col-md-7">
+                        {% if product.image %}
+                            <img class="img-thumbnail" src="{{ vich_uploader_asset(product, 'imageFile') }}" alt="card-img-top"
+                                 style="width:100%;height:auto;">
+                        {% else %}
+                            <img class="img-thumbnail" src="{{ 'uploads/images/products/empty.jpg' }}" alt="card-img-top"
+                                 style="width:100%;height:auto;">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-5 text-center">
+                        <div class="card-body">
+                            <div class="container">
+                                <h3>Tailles disponibles</h3>
+                                <ul class="list-group">
+                                    {% for spec in product.specificities %}
+                                        <li class="list-group-item">{{ spec.name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="container pt-5">
+                                <h3>Thematique</h3>
+                                <ul class="list-group">
+                                    {% for theme in product.themes %}
+                                        <li class="list-group-item">{{ theme.name }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                            <div class="container text-center pt-5">
+                                <h5>Prix</h5>
+                                <div class="text-danger" style="font-weight: bold;font-size: 20px;">
+                                    {{ product.price | number_format(2,',',' ') }} $
+                                </div>
+                            </div>
+                            <div class="container text-center pt-5">
+                                <a href="#" class="btn btn-outline-primary">Ajouter au panier</a>
+                                <a href="#" class="btn btn-outline-primary" id="contactButton" {% if form.vars.submitted %}
+                                    style="display: none;"{% endif %}>Envoyer un mail</a>
+                            </div>
+                            {#         Contact Form#}
+                            <div id="contactForm" class="mt-4" {% if not form.vars.submitted %} style="display: none;"{% endif %}>
+                                {{ form_start(form) }}
+                                <div class="container">
+                                    {{ form_widget(form) }}
+                                    <div class="form-group">
+                                        <button class="btn btn-primary">
+                                            Envoyer
+                                        </button>
+                                    </div>
+                                    {{ form_end(form) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="container pt-5">
+                <div class="card">
+                    <div class="card-header text-light bg-info">
+                        Description
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text"> {{ product.description | nl2br }}</p>
+                        <p>Crée le {{ product.createdAt | date('d/m/y') }} à {{ product.createdAt | date('H:i') }} </p>
+                    </div>
+                </div>
+                <div class="container mt-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2>Images</h2>
+                            <ul class="list-group">
+                                {% for imag in product.images %}
+                                    <li class="list-group-item"><img src="{{ imag.fileName }}" alt=""></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                {#      Commentaires#}
+
+                <div class="container mt-4">
+                    {% if app.user %}
+                        User  -> {{ userConnect }}
+                        <h5>Laisser un commentaire</h5>
+                        {{ form_start(commentForm) }}
+                        {#          {{ form_row(commentForm.author) }}#}
+                        {#          {{ form_row(commentForm.content) }}#}
+                        {#          {{ form_row(commentForm.user) }}#}
+                        {{ form_widget(commentForm) }}
+                        <button type="submit" class="btn btn-success">
+                            Commenter
+                        </button>
+                        {{ form_end(commentForm) }}
+                    {% else %}
+                        <h2>Vous ne pouvez pas poster d'articles si vous n'etes pas connecté</h2>
+                        <a href="{{ path('login') }}" class="btn btn-primary">Se connecter</a>
+                    {% endif %}
+                </div>
+                <div class="container mt-4">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h2>Commentaires</h2>
+                            <ul class="list-group">
+                                {% for comment in product.comments %}
+                                    <li class="list-group-item">{{ comment.user.username }} a écrit le {{ comment.createdAt | date('d/m/y') }} - <a
+                                                href="#">voir</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endblock %}

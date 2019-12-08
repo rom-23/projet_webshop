@@ -4,16 +4,14 @@
  * We recommend including the built version of this JavaScript file
  * (and its CSS file) in your base layout (base.html.twig).
  */
-//const $ = require('jquery');
+import Vue from "vue";
+import Home from './components/Home.vue';
+Vue.config.productionTip = false;
+require('./jquery');
 
 // any CSS you require will output into a single css file (app.css in this case)
 require('../css/app.css');
-require('select2');
 
-$('select').select2();
-$('#contactButton').click(e => {
-    e.preventDefault();
-    $('#contactForm').slideDown();
-    $('#contactButton').slideUp();
-});
-
+new Vue({
+    el: '#app',
+    components: {Home}});

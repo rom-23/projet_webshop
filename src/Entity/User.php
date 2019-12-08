@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -53,6 +54,18 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="datetime", nullable=false)
      */
     private $createdAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Ordering", mappedBy="users")
+     */
+    private $orderings;
+
+
+
+    public function __construct()
+    {
+        $this->orderings = new ArrayCollection();
+    }
 
 
     /**
@@ -181,5 +194,38 @@ class User implements UserInterface, \Serializable
     {
         return serialize( $this -> username );
     }
+
+    /**
+     * @return Collection|Ordering[]
+     */
+    public function getOrderings(): Collection
+    {
+        return $this->orderings;
+    }
+
+    public function addOrdering(Ordering $ordering): self
+    {
+        if (!$this->orderings->contains($ordering)) {
+            $this->orderings[] = $ordering;
+            $ordering->setUsers($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrdering(Ordering $ordering): self
+    {
+        if ($this->orderings->contains($ordering)) {
+            $this->orderings->removeElement($ordering);
+            // set the owning side to null (unless already changed)
+            if ($ordering->getUsers() === $this) {
+                $ordering->setUsers(null);
+            }
+        }
+
+        return $this;
+    }
+
+
 
 }

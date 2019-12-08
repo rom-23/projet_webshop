@@ -100,7 +100,10 @@ class Product
      */
     private $updatedAt;
 
-
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\OrderingProduct", mappedBy="products")
+     */
+    private $orderingProducts;
 
     public function __construct()
     {
@@ -109,6 +112,7 @@ class Product
         $this -> specificities = new ArrayCollection();
         $this -> comments = new ArrayCollection();
         $this -> themes = new ArrayCollection();
+        $this->orderingProducts = new ArrayCollection();
     }
 
     /**
@@ -270,35 +274,7 @@ class Product
         return $this -> images;
     }
 
-//    /**
-//     * @param Image $image
-//     * @return $this
-//     */
-//    public function addImage( Image $image ): self
-//    {
-//        if(!$this -> images -> contains( $image )) {
-//            $this -> images[] = $image;
-//            $image -> setProducts( $this );
-//        }
-//        return $this;
-//    }
-//
-//    /**
-//     * @param Image $image
-//     * @return $this
-//     */
-//    public function removeImage( Image $image ): self
-//    {
-//        if($this -> images -> contains( $image )) {
-//            $this -> images -> removeElement( $image );
-//            // set the owning side to null (unless already changed)
-//            if($image -> getProducts() === $this) {
-//                $image -> setProducts( null );
-//            }
-//        }
-//
-//        return $this;
-//    }
+
 
     /**
      * @return Collection|Comment[]
@@ -433,5 +409,39 @@ class Product
     {
         return $this -> name;
     }
+
+    /**
+     * @return Collection|OrderingProduct[]
+     */
+    public function getOrderingProducts(): Collection
+    {
+        return $this->orderingProducts;
+    }
+
+    public function addOrderingProduct(OrderingProduct $orderingProduct): self
+    {
+        if (!$this->orderingProducts->contains($orderingProduct)) {
+            $this->orderingProducts[] = $orderingProduct;
+            $orderingProduct->setProducts($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderingProduct(OrderingProduct $orderingProduct): self
+    {
+        if ($this->orderingProducts->contains($orderingProduct)) {
+            $this->orderingProducts->removeElement($orderingProduct);
+            // set the owning side to null (unless already changed)
+            if ($orderingProduct->getProducts() === $this) {
+                $orderingProduct->setProducts(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+
 
 }

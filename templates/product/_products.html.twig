@@ -17,6 +17,6 @@
 
         <p class="card-text text-primary">{{ product.price }}
             $</p>
-        <a href="#" class="btn btn-primary">Read</a>
+        <a href="{{ path('cart.add',{'id': product.id}) }}" class="btn btn-primary">Read</a>
     </div>
 </div>

@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello CartController!
+{% endblock %}
+
+{% block body %}
+
+
+    <table class="table mt-5 pt-5">
+    <thead>
+    <tr>
+        <td>Produit</td>
+        <td>Prix</td>
+        <td>Quantité</td>
+        <td>Total</td>
+    </tr>
+    </thead>
+    <tbody>
+    {% if items | length > 0 %}
+        {% for item in items %}
+            <tr>
+                <td>{{ item.product.name }}</td>
+                <td>{{ item.product.price }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.quantity*item.quantity }}</td>
+                <td><a href="{{ path('cart.remove', {'id':item.product.id}) }}" class="btn btn-danger btn-sm">Delete</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="3">Total :</td>
+            <td>{{ total }}</td>
+        </tr>
+    {% else %}
+        <tr>
+            <td>Surprise, c'est vide !</td>
+        </tr>
+        </tfoot>
+        </table>
+
+    {% endif %}
+
+{% endblock %}

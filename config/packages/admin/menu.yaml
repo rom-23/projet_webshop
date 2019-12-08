@@ -4,7 +4,7 @@ easy_admin:
       - label: 'Shop'
         icon: 'newspaper-o'
         children:
-          - {entity: 'Product', icon: 'store-alt', label: 'Products', css_class: 'default', default: true}
+          - {entity: 'Product', icon: 'store', label: 'Products', css_class: 'default', default: true}
           - {entity: 'Category', icon: 'layer-group', label: 'Categories'}
           - {entity: 'Specificities', icon: 'list', label: 'Specificities'}
           - {entity: 'Image', icon: 'image', label: 'Images'}
@@ -14,3 +14,5 @@ easy_admin:
         children:
           - {entity: 'User', icon: 'user', label: 'User'}
           - {entity: 'Comment', icon: 'comments', label: 'Comments'}
+          - {entity: 'Ordering', icon: 'money-check', label: 'Orders'}
+          - {entity: 'OrderingProduct', icon: 'shopping-cart', label: 'Order products'}

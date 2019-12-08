@@ -1,0 +1,2 @@
+#!/bin/sh
+rsync -av ./ inthenetih@ssh.cluster020.hosting.ovh.net:~/www/webshop --exclude-from '.rsyncignore'

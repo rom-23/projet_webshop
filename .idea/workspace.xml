@@ -2,14 +2,38 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="ff7fe6fc-1c39-49c1-9aae-10737ec84812" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/webo.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/webo.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/css/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/css/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/admin/entities/Product.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/admin/entities/Product.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/admin/entities/User.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/admin/entities/User.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/admin/menu.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/admin/menu.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/creative.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/assets/modern-business.css" beforeDir="false" afterPath="$PROJECT_DIR$/public/assets/product.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/images/products/5ddb03fe5f3f5049004661.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/images/products/5ddc04e832c10325098148.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/images/products/5ddc0d2e2ac32246657148.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/images/products/5ddc0ea9d3087800727710.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/uploads/images/products/5ddc2b7d14406889837862.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/HomeController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/ProductController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/ProductController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/SecurityController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/SecurityController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/Product.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/Product.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Form/CommentType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Form/CommentType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/home/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/product/Product.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/product/Product.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/product/Show.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/product/Show.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/product/_products.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/product/_products.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.config.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -145,6 +169,7 @@
       <path value="$PROJECT_DIR$/vendor/vich/uploader-bundle" />
       <path value="$PROJECT_DIR$/vendor/jms/metadata" />
       <path value="$PROJECT_DIR$/vendor/symfony/webpack-encore-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/apache-pack" />
     </include_path>
   </component>
   <component name="ProjectId" id="1TtgJPxAR7T9Z00h0fvnv1kIwaF" />
@@ -152,16 +177,18 @@
     <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/public/uploads/files" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="PhpToolbox.ApplicationForm" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/public/uploads/images/products" />
-      <recent name="$PROJECT_DIR$/public/images/products" />
       <recent name="$PROJECT_DIR$/public/uploads/files" />
+      <recent name="$PROJECT_DIR$/public/uploads/images/products" />
+      <recent name="$USER_HOME$/Bureau" />
+      <recent name="$PROJECT_DIR$/assets/images" />
+      <recent name="$PROJECT_DIR$/assets/css" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -211,7 +238,25 @@
       <workItem from="1574705234207" duration="6015000" />
       <workItem from="1574722045144" duration="6628000" />
       <workItem from="1574728698672" duration="537000" />
-      <workItem from="1574784943334" duration="20493000" />
+      <workItem from="1574784943334" duration="23206000" />
+      <workItem from="1574853557268" duration="736000" />
+      <workItem from="1574871292047" duration="29000" />
+      <workItem from="1574982140445" duration="512000" />
+      <workItem from="1574982682138" duration="1432000" />
+      <workItem from="1575026954118" duration="5390000" />
+      <workItem from="1575046496459" duration="5381000" />
+      <workItem from="1575052002159" duration="599000" />
+      <workItem from="1575067331431" duration="623000" />
+      <workItem from="1575205791818" duration="22889000" />
+      <workItem from="1575237174875" duration="1165000" />
+      <workItem from="1575296977313" duration="1098000" />
+      <workItem from="1575306270887" duration="26101000" />
+      <workItem from="1575360991642" duration="1398000" />
+      <workItem from="1575387126145" duration="23177000" />
+      <workItem from="1575476469780" duration="15612000" />
+      <workItem from="1575560536236" duration="22394000" />
+      <workItem from="1575651793066" duration="9318000" />
+      <workItem from="1575804312068" duration="10427000" />
     </task>
     <servers />
   </component>
@@ -240,5 +285,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/22" />
+    </ignored-roots>
   </component>
 </project>

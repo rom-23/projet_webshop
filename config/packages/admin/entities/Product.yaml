@@ -7,7 +7,7 @@ easy_admin:
         actions:
           - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
           - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}
-        fields: ['id',{ property: 'image', type: 'image', base_path: '%app.path.product_images%',label: 'Photo' } ,'name','description','price','category','themes','specificities','images','comments','sold','createdAt']
+        fields: ['id',{ property: 'image', type: 'image', base_path: '%app.path.product_images%',label: 'Photo' } ,'name','description','price','category','themes','specificities','images','comments','orderingProducts','sold','createdAt']
       form:
         fields:
           - { type: 'group', label: 'Content'}
