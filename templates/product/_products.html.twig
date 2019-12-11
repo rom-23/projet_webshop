@@ -1,9 +1,9 @@
 <div class="card mb-4">
     {% if product.image %}
-        <img src="{{ vich_uploader_asset(product, 'imageFile')}}" alt="card-img-top"
+        <img class="img-thumbnail" src="{{ vich_uploader_asset(product, 'imageFile')}}" alt="card-img-top"
              style="width:100%;height:auto;">
     {% else %}
-        <img src="{{ 'uploads/images/products/empty.jpg'}}" alt="card-img-top"
+        <img class="img-thumbnail" src="{{ 'uploads/images/products/empty.jpg'}}" alt="card-img-top"
              style="width:100%;height:auto;">
 
     {% endif %}
@@ -17,6 +17,10 @@
 
         <p class="card-text text-primary">{{ product.price }}
             $</p>
-        <a href="{{ path('cart.add',{'id': product.id}) }}" class="btn btn-primary">Read</a>
+        <div class="container">
+            <a href="{{ path('cart.add',{'id': product.id}) }}" class="btn btn-primary">Ajouter au panier</a>
+            <a href="{{ path('product.show', {id:product.id, slug:product.slug}) }}" class="btn btn-primary">Description</a>
+        </div>
+
     </div>
 </div>

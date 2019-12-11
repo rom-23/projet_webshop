@@ -4,7 +4,7 @@ easy_admin:
       class: App\Entity\OrderingProduct
 
       list:
-        help: 'The items in this entity can NOT be deleted here, Products must be = 0'
+
         actions:
           - {name: 'edit', icon: 'pencil', label: false, css_class: 'btn btn-secondary'}
           - {name: 'delete', icon: 'trash', label: false, css_class: 'btn btn-danger'}

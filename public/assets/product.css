@@ -39,5 +39,10 @@ background-color: rgba(28, 80, 233, 0.85);
     padding: 2em;
     background: linear-gradient(to bottom, rgba(0, 87, 226, 0.7) 0%, rgba(255, 255, 255, 0.99) 100%) no-repeat scroll center;
 }
+.cart{
+    margin-top: 50px;
+    padding-top: 4em;
+    padding-bottom: 6em;
+}
 
 

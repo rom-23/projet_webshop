@@ -15,6 +15,7 @@ security:
       logout:
         path: /logout
         target: /
+        invalidate_session: false
       form_login:
         check_path: login
       # activate different ways to authenticate
@@ -26,9 +27,10 @@ security:
   # Easy way to control access for large sections of your site
   # Note: Only the *first* access control that matches will be used
   access_control:
-#    - { path: ^/list, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    #    - { path: ^/list, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/admin, roles: ROLE_ADMIN }
     - { path: ^/profile, roles: ROLE_USER }
+    - { path: ^/ordering, roles: ROLE_USER }
 
 
   encoders:

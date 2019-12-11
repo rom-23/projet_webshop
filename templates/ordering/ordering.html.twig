@@ -1,17 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello CartController!
+{% block title %}
 {% endblock %}
 
 {% block body %}
+
     <div class="bgimg">
         <div class="container cart">
             <div class="card text-center">
                 <div class="card-header">
-                    <h5 class="card-title">Your shopping cart</h5>
+                    <h5 class="card-title">Livraison et paiement</h5>
                 </div>
                 <div class="card-body">
-                    <p class="card-title">Special title treatmecial title treatm ecial title treatm ent</p>
+                    <p class="card-title">{{ ordering.users.username }} - {{ ordering.id }} - {{ ordering.orderDate| date('d/m/Y a H:i') }}- {{ ordering.reference }}</p>
                     <table class="table pt-5">
                         <thead>
                         <tr>
@@ -28,8 +29,7 @@
                                 <td>{{ item.product.name }}</td>
                                 <td>{{ item.product.price }}</td>
                                 <td>{{ item.quantity }}</td>
-                                <td>{{ item.quantity*item.quantity }}</td>
-                                <td><a href="{{ path('cart.remove', {'id':item.product.id}) }}" class="btn btn-danger btn-sm">Delete</a></td>
+                                <td>{{ item.product.price*item.quantity }}</td>
                             </tr>
                         {% endfor %}
                         </tbody>
@@ -37,20 +37,17 @@
                         <tr>
                             <td colspan="3">Total :</td>
                             <td>{{ total }}</td>
-                            <td><a href="{{ path('ordering') }}" class="btn btn-success">Order</a></td>
+                            <td><a href="{{ path('payment',{'id':ordering.id}) }}" class="btn btn-success">Payer</a></td>
                         </tr>
-                        <tr>
-                            <td class="pt-5"><a href="{{ path('product') }}" class="btn btn-info">Continue shopping</a></td>
-                        </tr>
+
                         {% else %}
                         <tr>
-                            <td>Surprise, c'est vide !</td>
-                            <td><a href="{{ path('product.list') }}" class="btn btn-info">Continue shopping</a></td>
+                            <td>Le panier est vide</td>
+                            <td><a href="#" class="btn btn-info">Continue shopping</a></td>
                         </tr>
                         </tfoot>
                     </table>
                     {% endif %}
-
                 </div>
             </div>
 
