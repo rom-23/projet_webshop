@@ -1,0 +1,90 @@
+{% block stylesheets %}
+    <style>
+        #foot li {
+            list-style: none;
+            font-size: 13px;
+        }
+
+        #foot a {
+            text-decoration: none;
+            color: #4c5367;
+        }
+
+        a:hover {
+            color: #33a489;
+        }
+    </style>
+{% endblock %}
+<footer class="text-muted pt-5 bg-light">
+    <div class="container" id="foot">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card mb-4 border-0 bg-transparent">
+                    <div class="card-body">
+                        <p class="text-center pb-3 text-dark">Contact</p>
+                        <ul>
+                            <li>Appelez-nous au 01 05 23 92 45</li>
+                            <li><p>Du lundi au vendredi de 10h00 à 18h00</p></li>
+                            <li><p>écrivez-nous à <a href="#">webshop@inthenetwork.fr</a></p></li>
+                            <li><a href="#">ou directement via notre formulaire</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4 border-0 bg-transparent">
+                    <div class="card-body">
+                        <p class="text-center pb-3 text-dark">Livraison et paiement</p>
+                        <ul>
+                            <li><a href="#">Retours gratuits</a></li>
+                            <li><p><a href="#">Livraison gratuite 24/24h</a></p></li>
+                            <li><p><a href="#">Paiement sécurisé</a></p></li>
+                            <li><a href="#">Imprimé en France></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card mb-4 border-0 bg-transparent">
+                    <div class="card-body">
+                        <p class="text-center pb-3 text-dark">Informations</p>
+                        <ul>
+                            <li><a href="#">Mentions légales</a></li>
+                            <li><a href="#">Données personelles</a></li>
+                            <li><a href="#">Conditions générales de vente</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="container m-0 p-0">
+                <div class="row text-center">
+                    <div class="col">
+                        <ul>
+                            <li>
+                                <p class="text-dark">Rejoignez nous sur les réseaux sociaux</p>
+                                <div class="card bg-transparent border-0">
+                                    <div class="card-body w-100 bg-transparent m-0 p-0">
+                                        <a href="#"><img class="p-2 img-fluid max-width: 100%;"
+                                                         src="{{ asset('uploads/files/facebook-icone-CmonSite.jpg') }}"
+                                                         alt="">
+                                        </a><a href="#"><img class="p-2 img-fluid max-width: 100%;"
+                                                             src="{{ asset ('uploads/files/logo-google.jpg') }}" alt="">
+                                        </a><a href="#"><img class="p-2 img-fluid max-width: 100%;"
+                                                             src="{{ asset ('uploads/files/logo-instagram.jpg') }}"
+                                                             alt="">
+
+                                        </a><a href="#"><img class="p-2 img-fluid max-width: 100%;"
+                                                             src="{{ asset ('uploads/files/twitter-CmonSite.jpg') }}"
+                                                             alt="">
+                                        </a>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+

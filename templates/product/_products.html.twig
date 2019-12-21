@@ -5,22 +5,16 @@
     {% else %}
         <img class="img-thumbnail" src="{{ 'uploads/images/products/empty.jpg'}}" alt="card-img-top"
              style="width:100%;height:auto;">
-
     {% endif %}
     <div class="card-body">
-
         <h5 class="card-title">
             <a href="{{ path('product.show', {id:product.id, slug:product.slug}) }}">{{ product.name }}</a>
         </h5>
-        <!-- <p class="card-text">{{ product.description | nl2br }}</p> -->
-        <p class="card-text">{{ product.name }}
-
-        <p class="card-text text-primary">{{ product.price }}
-            $</p>
-        <div class="container">
-            <a href="{{ path('cart.add',{'id': product.id}) }}" class="btn btn-primary">Ajouter au panier</a>
-            <a href="{{ path('product.show', {id:product.id, slug:product.slug}) }}" class="btn btn-primary">Description</a>
+        <p class="card-text">Description : </p><p><i>{{ product.description | nl2br }}</i></p>
+        <p class="card-text text-primary text-center">{{ product.price }} euros</p>
+        <div class="container text-center pt-3">
+            <a href="{{ path('cart.add',{'id': product.id}) }}" class="btn btn-outline-success btn-sm">Ajouter au panier</a>
+            <a href="{{ path('product.show', {id:product.id, slug:product.slug}) }}" class="btn btn-outline-success btn-sm">Voir l'article</a>
         </div>
-
     </div>
 </div>

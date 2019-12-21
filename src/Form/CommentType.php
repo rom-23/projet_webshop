@@ -13,12 +13,15 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class CommentType extends AbstractType
 {
 
-    public function buildForm( FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-           // ->add('author')
-            ->add('content')
-           // ->add('user')
+            // ->add('author')
+            ->add('content', null, [
+                'label' => false,
+                'attr' => ['placeholder' => 'écris un nouveau commentaire ...']
+            ])
+            // ->add('user')
         ;
     }
 

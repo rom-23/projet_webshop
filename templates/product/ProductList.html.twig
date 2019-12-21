@@ -1,49 +1,55 @@
 {% extends 'base.html.twig' %}
 {% block title 'All Products' %}
-
   {% block stylesheets %}{% endblock %}
   {% block body %}
-      <div class="jumbotron jumbotron-fluid">
+<div class="bgimg">
+      <div class="jumbotron pb-3">
           <div class="container p-3">
               <h1 class="display-4">Catalogue</h1>
               <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
           </div>
-          <div class="container p-2">
-              {{ form_start(form) }}
-              <div class="form-row align-items-end">
-                  <div class="col">
-                      {{ form_row(form.minPrice) }}
-                  </div>
-                  <div class="col">
-                      {{ form_row(form.maxPrice) }}
-                  </div>
-                  <div class="col">
-                      {{ form_row(form.options) }}
-                  </div>
-                  <div class="col">
-                      <div class="form-group">
-                          <button class="btn btn-primary">
-                              Filtrer
-                          </button>
-                      </div>
+      </div>
 
+          <div class="container bg-light pt-2">
+              <p class="text-primary">Effectuez une recherche en fonction du prix et des tailles :</p>
+              <div class="container p-2 text-center">
+                  {{ form_start(form) }}
+                  <div class="row">
+                      <div class="col-md-3">
+                          {{ form_row(form.minPrice) }}
+                      </div>
+                      <div class="col-md-3">
+                          {{ form_row(form.maxPrice) }}
+                      </div>
+                      <div class="col-md-1">
+                      <label class="pt-2">Tailles </label>
+                      </div>
+                      <div class="col-md-3">
+                          {{ form_row(form.options) }}
+                      </div>
+                      <div class="col">
+                          <div class="form-group">
+                              <button class="btn btn-success">Filtrer</button>
+                          </div>
+                      </div>
                   </div>
+                  {{ form_end(form) }}
               </div>
-              {{ form_end(form) }}
           </div>
-      </div>
-      <div class="container">
-          <h1>All products</h1>
-          <div class="row">
-              {% for product in products %}
-                  <div class="col-md-4">
-                      {% include('product/_products.html.twig') %}
-                  </div>
-              {% endfor %}
+          <br>
+          <div class="container">
+              <div class="row">
+                  {% for product in products %}
+                      <div class="col-md-4">
+                          {% include('product/_products.html.twig') %}
+                      </div>
+                  {% endfor %}
+              </div>
+              <div class="pagination">
+                  {{ knp_pagination_render(products) }}
+              </div>
           </div>
-          <div class="pagination">
-              {{ knp_pagination_render(products) }}
-          </div>
-      </div>
+
+</div>
 
   {% endblock %}

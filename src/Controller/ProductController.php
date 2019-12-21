@@ -83,7 +83,6 @@ class ProductController extends AbstractController
 
     /**
      * @Route("/product/{slug}-{id}", name="product.show", requirements={"slug": "[a-z0-9\-]*"})
-     * @param UserInterface $userOnline
      * @param Product $product
      * @param string $slug
      * @param Request $request
@@ -127,6 +126,7 @@ class ProductController extends AbstractController
 
         if($form -> isSubmitted() && $form -> isValid()) {
             $notification -> notify( $contact );
+mail("romain.laurent23@gmail.com","mon sujet","le corps du message");
             $this -> addFlash( 'success', 'Email envoyé' );
             return $this -> redirectToRoute( 'product.show', [
                 'id'   => $product -> getId(),

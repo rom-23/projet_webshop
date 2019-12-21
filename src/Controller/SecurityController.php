@@ -7,16 +7,12 @@ use App\Form\RegistrationType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-//use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
-
-
 
 class SecurityController extends AbstractController
 {
@@ -44,7 +40,6 @@ class SecurityController extends AbstractController
      */
     public function inscription(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder)
     {
-//        NativeSessionStorage::class;
         $user = new User();
         $form = $this -> createForm( RegistrationType::class, $user );
         $form -> handleRequest( $request );
@@ -53,7 +48,7 @@ class SecurityController extends AbstractController
             $user -> setPassword( $hash );
             $manager -> persist( $user );
             $manager -> flush();
-
+// permet de connecter l'user directement apres registration
             $token = new UsernamePasswordToken($user, null, 'main', $user->getRoles());
             $this->container->get('security.token_storage')->setToken($token);
             $this->container->get('session')->set('_security_main', serialize($token));

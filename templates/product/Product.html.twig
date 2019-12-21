@@ -6,29 +6,29 @@
 {% endblock %}
 {% block body %}
 <header>
-    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+    <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel" data-interval="1500">
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
             <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
             <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
         </ol>
         <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="/uploads/files/5ddc04e832c10325098148.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-item active" data-interval="2000">
+                <img src="{{ asset('uploads/images/products/5de94b5fe3c77083865851.jpg') }}" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>First slide label</h5>
                     <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
                 </div>
             </div>
-            <div class="carousel-item">
-                <img src="/uploads/files/5ddc04e832c10325098148.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-item" data-interval="2000">
+                <img src="{{ asset('uploads/files/webdesign-3411373_1920.jpg') }}" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Second slide label</h5>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                 </div>
             </div>
-            <div class="carousel-item">
-                <img src="/uploads/files/5ddc04e832c10325098148.jpg" class="d-block w-100" alt="...">
+            <div class="carousel-item" data-interval="2000">
+                <img src="{{ asset('uploads/files/network-2402637_1280.jpg') }}" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>Third slide label</h5>
                     <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
@@ -46,9 +46,9 @@
     </div>
 </header>
     <div class="text-center bgimg">
-    <div class="jumbotron">
+    <div class="jumbotron pb-4">
         <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
-        <hr class="my-4">
+        <hr class="my-2">
         <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
     </div>
         <div class="container mb-4 lastProducts">
@@ -86,13 +86,13 @@
                             </p>
                             <p class="card-title text-primary">Description</p>
                             <p class="card-text">{{ product.description }}</p>
-                            <p class="card-title text-primary">Price</p>
+                            <p class="card-title text-primary">Prix</p>
                             <p class="text-warning" style="font-weight: bold;">{{ product.price | number_format(2,',',' ') }} $</p>
-                            <p class="card-title text-primary">Category</p>
+                            <p class="card-title text-primary">Categorie</p>
                             <p class="card-text text-secondary">{{ product.category }}</p>
                             <p class="card-text">on {{ product.createdAt | date('d/m/Y a H:i') }}</p>
-                            <a class="btn btn-outline-info" href="{{ path('product.show', {id:product.id, slug:product.slug}) }}">Read More</a>
-                            <a href="{{ path('cart.add',{'id': product.id}) }}" class="btn btn-outline-info">Add to cart</a>
+                            <a class="btn btn-outline-info" href="{{ path('product.show', {id:product.id, slug:product.slug}) }}">Détails</a>
+                            <a href="{{ path('cart.add',{'id': product.id}) }}" class="btn btn-outline-info">Ajouter au panier</a>
                         </div>
                     </div>
                 </div>
@@ -100,7 +100,7 @@
                 </div>
             </section>
         <div class="container align-center mb-5">
-            <a href="{{ path('product.list') }}" class="btn btn-primary btn-lg">See all products</a>
+            <a href="{{ path('product.list') }}" class="btn btn-info btn-lg">Voir le catalogue</a>
         </div>
     </div>
         <!--        Last section-->
@@ -139,10 +139,5 @@
         </section>
 
     </div>
-    <footer class="py-5 bg-light">
-        <div class="container">
-            <p class="m-0 text-center text-dark">Copyright &copy; Your Website 2019</p>
-        </div>
-        <!-- /.container -->
-    </footer>
+
     {% endblock %}

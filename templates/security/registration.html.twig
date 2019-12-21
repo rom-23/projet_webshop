@@ -7,23 +7,26 @@
             <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
         </div>
     </div>
-<div class="container" style="width: 40em;">
-    <div class="card" >
-        <div class="card-body">
-            <div class="container mt-4">
-        {{ form_start(form) }}
-        {{ form_row(form.username,{'label':'Nom utilisateur','attr': {'placeholder':'Nom utilisateur'}}) }}
-        {{ form_row(form.email,{'label':'Adresse email','attr': {'placeholder':'Adresse email'}}) }}
-        {{ form_row(form.password,{'label':'Mot de passe','attr': {'placeholder':'Mot de passe'}}) }}
-        {{ form_row(form.confirm_password,{'label':'Confirmation mot de passe','attr': {'placeholder':'Confirmer mot de passe'} }) }}
-        <button type="submit" class="btn btn-success mt-2">
-            Enregistrer
-        </button>
-        {{ form_end(form) }}
-    </div>
+    <div class="container p-5 mb-5" style="width: 40em;">
+        <div class="card">
+            <div class="card-body">
+                <div class="container mt-4">
+                    {{ form_start(form) }}
+                    {{ form_row(form.username,{'label':'Nom utilisateur','attr': {'placeholder':'Choisis un nom'}}) }}
+                    {{ form_row(form.email,{'label':'Adresse email','attr': {'placeholder':'une adresse mail'}}) }}
+                    {{ form_row(form.password,{'label':'Mot de passe','attr': {'placeholder':'Mot de passe'}}) }}
+                    {{ form_row(form.confirm_password,{'label':'Confirmation mot de passe','attr': {'placeholder':'Confirmer mot de passe'} }) }}
+                    <div class="container text-center">
+                    <button type="submit" class="btn btn-success mt-2">
+                        Enregistrer
+                    </button>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
         </div>
     </div>
-</div>
+
 {% endblock %}
 
 {% block title %}

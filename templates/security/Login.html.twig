@@ -3,29 +3,31 @@
   {% block body %}
       <div class="jumbotron jumbotron-fluid">
           <div class="container">
-              <h2 class="display-4">Connexion</h2>
+              <h1>Connecte toi à ton webshop</h1>
               <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
           </div>
       </div>
       {% if error %}
           <div class="alert alert-danger"> {{ error.messageKey | trans(error.messagedata, 'security') }} </div>
       {% endif %}
-      <div class="container" style="width: 25em;">
-      <div class="card" >
+      <div class="container mb-5 pb-5" style="width: 25em;">
+      <div class="card">
           <div class="card-body">
-              <h5 class="card-title">Log to you webshop</h5>
+              <h5 class="card-title">Connexion</h5>
               <div class="container mt-4">
                   <form action="{{ path('login') }}" method="post">
                       <div class="form-group">
-                          <label for="username">User name : </label>
+                          <label for="username">Nom utilisateur : </label>
                           <input type="text" id="username" name="_username" class="form-control" value="{{ last_username }}">
                       </div>
                       <div class="form-group">
-                          <label for="password">Password : </label>
+                          <label for="password">Mot de passe : </label>
                           <input type="password" id="password" name="_password" class="form-control">
                       </div>
-                      <button type="submit" class="btn btn-success">se connecter</button>
-                      <a href="{{ path('security_registration') }}" class="btn btn-success">Inscription</a>
+                      <div class="container text-center pt-2">
+                      <button type="submit" class="btn btn-success mb-3">se connecter</button>
+                      <p><span>Pas encore inscrit ? <a href="{{ path('security_registration') }}"><i>C'est par ici</i></a></span></p>
+                      </div>
                   </form>
               </div>
           </div>

@@ -16,20 +16,14 @@ class PaymentController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function payment(CartService $cartService,Request $request)
+    public function payment(CartService $cartService, Request $request)
     {
-        $idOrder=$request->get('id');
-
-
-        $total =$cartService->getTotal();
-
-$cartService->payment($idOrder);
-
-
+        $idOrder = $request->get('id');
+        $total = $cartService->getTotal();
+        $cartService->payment($idOrder);
+        var_dump(mail("romain.laurent23@gmail.com","Confirmation de commande","Ok la commande ... est confirmée"));
         return $this->render('ordering/confirm.html.twig', [
-
-
-            'total'=>$total
+            'total' => $total
         ]);
 
     }

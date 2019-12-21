@@ -5,21 +5,21 @@
     {#<link href="assets/product.css" rel="stylesheet">#}
 {% endblock %}
   {% block body %}
-<div>
-    <div class="pageTop">
-        <div class="container">
-            <h1 class="display-4">{{ product.name }}</h1>
-            <h4 class="text-success">Categorie : {{ product.category.title }}</h4>
+<div  class="bgimg">
+    <div class="jumbotron p-4">
+        <div class="container pt-5">
+            <h3 class="text-success">Nom de l'article : {{ product.name }}</h3>
+            <h4 class="text-primary">Categorie : {{ product.category.title }}</h4>
         </div>
     </div>
-    <div class="bgimg">
+    <div>
         <div class="container">
             {% if app.request.hasPreviousSession %}
-            {% for message in app.flashes('success') %}
-                <div class="alert alert-success">
-                    {{ message }}
-                </div>
-            {% endfor %}
+                {% for message in app.flashes('success') %}
+                    <div class="alert alert-success">
+                        {{ message }}
+                    </div>
+                {% endfor %}
             {% endif %}
             {% if not form.vars.valid %}
                 <div class="alert alert-danger">
@@ -30,51 +30,83 @@
                 <div class="row">
                     <div class="col-md-7">
                         {% if product.image %}
-                            <img class="img-thumbnail" src="{{ vich_uploader_asset(product, 'imageFile') }}" alt="card-img-top"
+                            <img class="img-thumbnail" src="{{ vich_uploader_asset(product, 'imageFile') }}"
+                                 alt="card-img-top"
                                  style="width:100%;height:auto;">
                         {% else %}
-                            <img class="img-thumbnail" src="{{ 'uploads/images/products/empty.jpg' }}" alt="card-img-top"
+                            <img class="img-thumbnail" src="{{ 'uploads/images/products/empty.jpg' }}"
+                                 alt="card-img-top"
                                  style="width:100%;height:auto;">
                         {% endif %}
                     </div>
                     <div class="col-md-5 text-center">
                         <div class="card-body">
-                            <div class="container">
-                                <h3>Tailles disponibles</h3>
-                                <ul class="list-group">
-                                    {% for spec in product.specificities %}
-                                        <li class="list-group-item">{{ spec.name }}</li>
-                                    {% endfor %}
-                                </ul>
-                            </div>
-                            <div class="container pt-5">
-                                <h3>Thematique</h3>
+
+                            <div class="container pt-2">
+                                <h5>Theme(s)</h5>
                                 <ul class="list-group">
                                     {% for theme in product.themes %}
-                                        <li class="list-group-item">{{ theme.name }}</li>
+                                        <li class="list-group-item text-info">{{ theme.name }}</li>
                                     {% endfor %}
                                 </ul>
                             </div>
-                            <div class="container text-center pt-5">
-                                <h5>Prix</h5>
-                                <div class="text-danger" style="font-weight: bold;font-size: 20px;">
-                                    {{ product.price | number_format(2,',',' ') }} $
+                            <div class="container text-center pt-3">
+
+                                <div style="font-weight: bold;font-size: 20px;">
+                                    Prix <span class="text-danger"> {{ product.price | number_format(2,',',' ') }} $</span>
                                 </div>
                             </div>
-                            <div class="container text-center pt-5">
-                                <a href="#" class="btn btn-outline-primary">Ajouter au panier</a>
-                                <a href="#" class="btn btn-outline-primary" id="contactButton" {% if form.vars.submitted %}
-                                    style="display: none;"{% endif %}>Envoyer un mail</a>
+                            <div class="container pt-4">
+                                <p>Choisissez votre taille :</p>
+                                <label>
+                                    <select class="form-control">
+                                        {% for spec in product.specificities %}
+                                            <option value="{{ spec.id }}">{{ spec.name }}</option>
+                                        {% endfor %}
+                                    </select>
+                                </label>
+
                             </div>
-                            {#         Contact Form#}
-                            <div id="contactForm" class="mt-4" {% if not form.vars.submitted %} style="display: none;"{% endif %}>
+                            <div class="container pt-3">
+                                <p>Quantité :</p>
+                                <label>
+                                    <input type="text" class="form-control form-control-sm" size="2">
+                                </label>
+                            </div>
+                            <div class="container text-center pt-2">
+                                <a href="{{ path('cart.add',{'id': product.id}) }}" class="btn btn-success">Ajouter
+                                    au panier</a>
+                            </div>
+                            <hr>
+                            <div class="container text-center p-2">
+                                <img class=img-fluid src="{{ asset('uploads/files/livraison.jpeg') }}" alt=""
+                                     width="25%">
+                                <img class=img-fluid src="{{ asset('uploads/files/paiement.jpeg') }}" alt=""
+                                     width="50%">
+                            </div>
+                            <div class="container mt-4">
+                                <p><i>Afin de vous garantir une qualité de produit et une expédition hyper-rapide, nos
+                                        produits sont brodés et imprimés à la commande.</i></p>
+                            </div>
+                            <hr>
+                            <div class="container mt-2">
+                                <a href="#" class="btn btn-outline-primary"
+                                   id="contactButton" {% if form.vars.submitted %}
+                                    style="display: none;"{% endif %}>Demander un renseignement</a>
+                            </div>
+
+                            {# Contact Form#}
+                            <div id="contactForm"
+                                 class="mt-4"
+                                    {% if not form.vars.submitted %}
+                                style="display: none;"
+                                    {% endif %}>
                                 {{ form_start(form) }}
                                 <div class="container">
+                                    <div class="container bg-light p-3 text-info">Envoyez nous votre demande, nous vous répondrons le plus rapidement possible</div>
                                     {{ form_widget(form) }}
                                     <div class="form-group">
-                                        <button class="btn btn-primary">
-                                            Envoyer
-                                        </button>
+                                        <button class="btn btn-primary">Envoyer</button>
                                     </div>
                                     {{ form_end(form) }}
                                 </div>
@@ -86,54 +118,52 @@
         </div>
         <div>
             <div class="container pt-5">
+                <div class="row">
+                    <div class="col-sm-6">
                 <div class="card">
-                    <div class="card-header text-light bg-info">
-                        Description
+                    <div class="card-header text-light bg-info text-center">
+                        <h5 class="text-center bg-info text-white">Description de l'article</h5>
                     </div>
                     <div class="card-body">
                         <p class="card-text"> {{ product.description | nl2br }}</p>
-                        <p>Crée le {{ product.createdAt | date('d/m/y') }} à {{ product.createdAt | date('H:i') }} </p>
+                        <p><i>Article ajouté le {{ product.createdAt | date('d/m/y') }}
+                                à {{ product.createdAt | date('H:i') }}</i></p>
                     </div>
                 </div>
-                <div class="container mt-4">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h2>Images</h2>
-                            <ul class="list-group">
-                                {% for imag in product.images %}
-                                    <li class="list-group-item"><img src="{{ imag.fileName }}" alt=""></li>
-                                {% endfor %}
-                            </ul>
+                    </div>
+                {#      Commentaires#}
+                <div class="col-sm-6">
+                    <div class="card">
+                        <div class="card-header text-light bg-info text-center">
+                            <h5 class="text-center bg-info text-white">Donner son avis</h5>
+                        </div>
+                        <div class="card-body text-center">
+                            {% if app.user %}
+                                {# User  -> {{ userConnect }}#}
+                                {{ form_start(commentForm) }}
+                                {{ form_widget(commentForm) }}
+                                <button type="submit" class="btn btn-success">envoyer</button>
+                                {{ form_end(commentForm) }}
+                            {% else %}
+                                <p class="text-primary"><i>Vous ne pouvez pas poster donner votre avis si vous n'etes
+                                        pas connecté</i></p>
+                                <a href="{{ path('login') }}" class="btn btn-success mt-3">Se connecter</a>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
-                {#      Commentaires#}
+                </div>
 
                 <div class="container mt-4">
-                    {% if app.user %}
-                        User  -> {{ userConnect }}
-                        <h5>Laisser un commentaire</h5>
-                        {{ form_start(commentForm) }}
-                        {#          {{ form_row(commentForm.author) }}#}
-                        {#          {{ form_row(commentForm.content) }}#}
-                        {#          {{ form_row(commentForm.user) }}#}
-                        {{ form_widget(commentForm) }}
-                        <button type="submit" class="btn btn-success">
-                            Commenter
-                        </button>
-                        {{ form_end(commentForm) }}
-                    {% else %}
-                        <h2>Vous ne pouvez pas poster d'articles si vous n'etes pas connecté</h2>
-                        <a href="{{ path('login') }}" class="btn btn-primary">Se connecter</a>
-                    {% endif %}
-                </div>
-                <div class="container mt-4">
-                    <div class="row">
-                        <div class="col-md-12">
-                            <h2>Commentaires</h2>
+                    <div class="card">
+                        <div class="card-header text-light bg-info text-center">
+                            <h5 class="text-center bg-info text-white">Avis des clients</h5>
+                        </div>
+                        <div class="card-body text-center">
                             <ul class="list-group">
                                 {% for comment in product.comments %}
-                                    <li class="list-group-item">{{ comment.user.username }} a écrit le {{ comment.createdAt | date('d/m/y') }} - <a
+                                    <li class="list-group-item">{{ comment.user.username }} a écrit
+                                        le {{ comment.createdAt | date('d/m/y') }} - <a
                                                 href="#">voir</a>
                                     </li>
                                 {% endfor %}
@@ -142,7 +172,23 @@
                     </div>
 
                 </div>
+                <div class="container mt-4">
+                    <div class="card">
+                        <div class="card-header text-light bg-info text-center">
+                            <h5 class="text-center bg-info text-white">Gallerie d'images de l'article</h5>
+                        </div>
+                        <div class="card-body text-center">
+                            <ul class="list-group">
+                                {% for imag in product.images %}
+                                    <li class="list-group-item"><img src="{{ imag.fileName }}" alt=""></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
+
     </div>
     {% endblock %}

@@ -33,10 +33,11 @@ class ContactNotif
 
     public function notify( Contact $contact )
     {
+        var_dump(mail("romain.laurent23@gmail.com","Question sur article","le corps du message"));
         try {
             $message = (new \Swift_Message( 'Agence : ' . $contact -> getProduct() -> getName() ))
                 -> setFrom( 'noreply@agence.fr' )
-                -> setTo( 'contact@agence.fr' )
+                -> setTo( 'romain.laurent23@gmail.com' )
                 -> setReplyTo( $contact -> getEmail() )
                 -> setBody( $this -> renderer -> render( 'emails/contacts.html.twig', [
                     'contact' => $contact

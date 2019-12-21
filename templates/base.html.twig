@@ -23,21 +23,36 @@
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand ml-5" href="/">WebShop</a>
-        <a href="#" class="nav-link text-success">{{ app.user.username ?? 'Visite anonyme' }}</a>
+        <a class="navbar-brand ml-2" href="/">WebShop</a>
+        <a href="#" class="nav-link text-success">{{ app.user.username ?? 'Viste anonyme' }}</a>
+        {% if not app.user %}
+            <a class="nav-link text-secondary" href="{{ path('login') }}">Connexion</a>
+        {% else %}
+            <a href="{{ path('logout') }}" class="btn btn-outline-secondary btn-sm">Se
+                deconnecter</a>
+        {% endif %}
         <ul class="navbar-nav mt-2 mt-lg-0 ml-auto">
+            <li>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control form-control-sm mr-sm-2" type="search" placeholder="Rechercher sur le site ..." size="50">
+            <button class="btn btn-outline-success btn-sm my-2 my-sm-0" type="submit">Chercher</button>
+        </form>
+            </li>
+        </ul>
+        <ul class="navbar-nav mt-2 mt-lg-0 ml-auto">
+
             <li class="nav-item">
-                <a class="nav-link" href="{{ path('product') }}">News</a>
+                <a class="nav-link" href="{{ path('product') }}">Nouveautés</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ path('product.list') }}">Catalogue</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{{ path('cart') }}">Cart</a>
+                <a class="nav-link" href="{{ path('cart') }}">Panier</a>
             </li>
             {% if app.user %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('profile') }}">Profile</a>
+                    <a class="nav-link" href="{{ path('profile') }}">Mon compte</a>
                 </li>
             {% endif %}
         </ul>
@@ -45,23 +60,14 @@
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
                 <li>
                     {% if not app.user %}
-                        <a class="nav-link" href="{{ path('security_registration') }}">Register
+                        <a class="nav-link" href="{{ path('security_registration') }}">inscription
                         </a>
                     {% endif %}
                 </li>
-                {% if not app.user %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ path('login') }}">Connexion</a>
-                    </li>
-                {% else %}
-                    <li class="nav-item">
-                        <a href="{{ path('logout') }}" class="nav-link btn btn-outline-success btn-sm">Se
-                            deconnecter</a>
-                    </li>
-                {% endif %}
-                <li class="nav-item">
-                    <a class="nav-link" href="/admin">Admin</a>
-                </li>
+
+{#                <li class="nav-item">#}
+{#                    <a class="nav-link" href="/admin">Admin</a>#}
+{#                </li>#}
             </ul>
 
         </form>
@@ -76,6 +82,6 @@
 
 {#<script src="{{ asset('build/app.js') }}" type="text/javascript"></script>#}
 {% block javascripts %}{{ encore_entry_script_tags('app') }}{% endblock %}
-
+{% include('includes/_footer.html.twig') %}
 </body>
 </html>

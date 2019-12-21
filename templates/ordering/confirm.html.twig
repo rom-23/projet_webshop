@@ -9,10 +9,14 @@
         <div class="container cart">
             <div class="card text-center">
                 <div class="card-header">
-                    <h5 class="card-title">Confirmation</h5>
+                    <h5 class="card-title">Confirmation de commande</h5>
                 </div>
                 <div class="card-body">
-><p>ok</p>
+
+                            <h5 class="card-title">Commande enregistrée</h5>
+                            <p class="card-text">Votre commande à bien été enregistrée, vous allez recevoir un mail de confirmation, Merci </p>
+                            <a href="{{ path('product.list') }}" class="btn btn-info">Retour à la boutique</a>
+
 
                 </div>
             </div>
@@ -20,4 +24,5 @@
         </div>
 
     </div>
+
 {% endblock %}

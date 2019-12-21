@@ -64,6 +64,7 @@ class User implements UserInterface, \Serializable
 
     public function __construct()
     {
+        $this->createdAt = new \DateTime();
         $this->orderings = new ArrayCollection();
     }
 

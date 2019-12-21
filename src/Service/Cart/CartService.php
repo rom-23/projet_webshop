@@ -102,6 +102,7 @@ class CartService
 
             $this->manager->persist($orderingProduct);
             $this->manager->flush();
+            $this->session->set('cart', []);
         }
     }
 }
